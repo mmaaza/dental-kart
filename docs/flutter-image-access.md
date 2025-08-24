@@ -3,7 +3,7 @@
 This document explains how Flutter apps should construct and load image URLs that are stored under the public `uploads/` directory on the production site.
 
 ### What you need to know
-- **Public base URL**: `https://medicalbazzarnepal.com`
+- **Public base URL**: `https://dentalkartnepal.com`
 - **Static image root**: `/uploads`
 - **Payment screenshots**: `/uploads/payments`
 - **API returns relative paths** like `/uploads/<filename>`; the app must prepend the base URL to form a full URL.
@@ -22,11 +22,11 @@ const paymentScreenshot = req.file ? `/uploads/payments/${path.basename(req.file
 ```
 
 ### Production URL pattern
-- Example actual file on prod: `https://medicalbazzarnepal.com/uploads/<filename>`
-- Payment example: `https://medicalbazzarnepal.com/uploads/payments/<filename>`
+- Example actual file on prod: `https://dentalkartnepal.com/uploads/<filename>`
+- Payment example: `https://dentalkartnepal.com/uploads/payments/<filename>`
 
 Reference example (live):
-- [`https://medicalbazzarnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg`](https://medicalbazzarnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg)
+- [`https://dentalkartnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg`](https://dentalkartnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg)
 
 ## Flutter implementation
 
@@ -39,10 +39,10 @@ class AppConfig {
   AppConfig._();
 
   // Prod
-  static const String publicBaseUrl = 'https://medicalbazzarnepal.com';
+  static const String publicBaseUrl = 'https://dentalkartnepal.com';
 
   // If you ever run a staging site, switch here:
-  // static const String publicBaseUrl = 'https://staging.medicalbazzarnepal.com';
+  // static const String publicBaseUrl = 'https://staging.dentalkartnepal.com';
 }
 ```
 
@@ -120,7 +120,7 @@ Image.network(screenshotUrl);
 ## Handling edge cases
 - **Already absolute URLs**: `UrlUtils.resolveImageUrl` returns the input unchanged if it starts with `http://` or `https://`.
 - **Null or empty paths**: Return an empty string and render a fallback (e.g., placeholder icon).
-- **Web builds (Flutter Web)**: Images are fetched cross-origin from `https://medicalbazzarnepal.com`. Standard `<img>` fetches are allowed without CORS headers; only canvas operations would require CORS.
+- **Web builds (Flutter Web)**: Images are fetched cross-origin from `https://dentalkartnepal.com`. Standard `<img>` fetches are allowed without CORS headers; only canvas operations would require CORS.
 - **Timeouts/retries**: Consider wrapping with your own retry logic if necessary.
 
 Example with graceful fallback:
@@ -156,11 +156,11 @@ Widget productImageOrFallback(String? relativePath) {
 - For local Android emulator hitting a LAN server, ensure the device can reach the hostname (or use the machine IP).
 
 ## Quick checklist
-- API returns `/uploads/...` → join with `https://medicalbazzarnepal.com`.
+- API returns `/uploads/...` → join with `https://dentalkartnepal.com`.
 - Use `UrlUtils.resolveImageUrl` everywhere you need an image URL.
 - Prefer `CachedNetworkImage` with placeholders and error widgets.
 
 ## References
-- Live asset example: [`https://medicalbazzarnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg`](https://medicalbazzarnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg)
+- Live asset example: [`https://dentalkartnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg`](https://dentalkartnepal.com/uploads/1753894494549-972326881-31qIc2xyrqL.jpg_BO30_255_255_255_UF900_850_SR1910_1000_0_C_QL100_.jpg)
 
 

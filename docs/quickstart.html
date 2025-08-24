@@ -89,7 +89,7 @@
                         <h3>🌐 Environment URLs</h3>
                         <ul>
                             <li><strong>Development:</strong> <code>http://localhost:5000/api</code></li>
-                            <li><strong>Production:</strong> <code>https://medicalbazzarnepal.com/api</code></li>
+                            <li><strong>Production:</strong> <code>https://dentalkartnepal.com/api</code></li>
                         </ul>
                     </div>
                 </section>
@@ -149,7 +149,7 @@
                         <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products?limit=5"</code></pre>
                         
                         <h4>Production</h4>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products?limit=5"</code></pre>
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/products?limit=5"</code></pre>
                     </div>
 
                     <div class="example-card">
@@ -296,7 +296,7 @@
 class MBNepalAPI {
   constructor(environment = 'development') {
     this.baseUrl = environment === 'production' 
-      ? 'https://medicalbazzarnepal.com/api'
+      ? 'https://dentalkartnepal.com/api'
       : 'http://localhost:5000/api';
     this.token = localStorage.getItem('mbnepal_token');
   }

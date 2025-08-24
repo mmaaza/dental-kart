@@ -260,7 +260,7 @@ curl -X GET "http://localhost:5000/api/auth/me" \
 
                         <h4>Production (HTTPS)</h4>
                         <pre><code class="language-bash"># Login to get token
-curl -X POST "https://medicalbazzarnepal.com/api/auth/login" \
+curl -X POST "https://dentalkartnepal.com/api/auth/login" \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -268,7 +268,7 @@ curl -X POST "https://medicalbazzarnepal.com/api/auth/login" \
   }'
 
 # Use token in authenticated requests
-curl -X GET "https://medicalbazzarnepal.com/api/auth/me" \
+curl -X GET "https://dentalkartnepal.com/api/auth/me" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Content-Type: application/json"</code></pre>
 
@@ -277,7 +277,7 @@ curl -X GET "https://medicalbazzarnepal.com/api/auth/me" \
                             <h4>Step 1: Setup Environment</h4>
                             <ul>
                                 <li>Create a new environment in Postman</li>
-                                <li>Add variable <code>baseUrl</code> with value <code>http://localhost:5000/api</code> (dev) or <code>https://medicalbazzarnepal.com/api</code> (prod)</li>
+                                <li>Add variable <code>baseUrl</code> with value <code>http://localhost:5000/api</code> (dev) or <code>https://dentalkartnepal.com/api</code> (prod)</li>
                                 <li>Add variable <code>authToken</code> (leave empty initially)</li>
                             </ul>
 
@@ -343,7 +343,7 @@ localStorage.setItem('authToken', token);
 
 // Use token in requests (both HTTP and HTTPS)
 const baseUrl = process.env.NODE_ENV === 'production' 
-  ? 'https://medicalbazzarnepal.com/api' 
+  ? 'https://dentalkartnepal.com/api' 
   : 'http://localhost:5000/api';
 
 const response = await fetch(`${baseUrl}/auth/me`, {
@@ -362,7 +362,7 @@ const data = await response.json();</code></pre>
 // Configure base URL
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'production' 
-    ? 'https://medicalbazzarnepal.com/api' 
+    ? 'https://dentalkartnepal.com/api' 
     : 'http://localhost:5000/api'
 });
 
@@ -381,7 +381,7 @@ await AsyncStorage.setItem('authToken', token);
 // Configure API URL
 const API_BASE = __DEV__ 
   ? 'http://10.0.2.2:5000/api'  // Android emulator
-  : 'https://medicalbazzarnepal.com/api';
+  : 'https://dentalkartnepal.com/api';
 
 // Use token in requests
 const response = await fetch(`${API_BASE}/auth/me`, {

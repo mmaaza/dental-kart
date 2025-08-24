@@ -145,7 +145,7 @@
                         <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands"</code></pre>
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/brands"</code></pre>
                         
                         <h5>Featured Brands Only</h5>
                         <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands?featured=true"</code></pre>
@@ -213,7 +213,7 @@
                         <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/slug/medtech-solutions"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/slug/medtech-solutions"</code></pre>
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/brands/slug/medtech-solutions"</code></pre>
 
                         <h4>Postman Setup:</h4>
                         <div class="postman-guide">
@@ -258,7 +258,7 @@
                         <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012345"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012345"</code></pre>
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012345"</code></pre>
 
                         <h4>Postman Setup:</h4>
                         <div class="postman-guide">
@@ -304,7 +304,7 @@
   }'</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/brands" \
+                        <pre><code class="language-bash">curl -X POST "https://dentalkartnepal.com/api/brands" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -396,7 +396,7 @@
   }'</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X PUT "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+                        <pre><code class="language-bash">curl -X PUT "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -456,7 +456,7 @@
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-featured" \
+                        <pre><code class="language-bash">curl -X PATCH "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-featured" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Setup:</h4>
@@ -497,7 +497,7 @@
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-status" \
+                        <pre><code class="language-bash">curl -X PATCH "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-status" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Setup:</h4>
@@ -572,7 +572,7 @@
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/admin/list?status=all&featured=true" \
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/brands/admin/list?status=all&featured=true" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Setup:</h4>
@@ -602,7 +602,7 @@
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/admin/64a1b2c3d4e5f6789012347" \
+                        <pre><code class="language-bash">curl -X GET "https://dentalkartnepal.com/api/brands/admin/64a1b2c3d4e5f6789012347" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Setup:</h4>
@@ -632,7 +632,7 @@
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
                         
                         <h5>Production (HTTPS)</h5>
-                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+                        <pre><code class="language-bash">curl -X DELETE "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Setup:</h4>
@@ -702,7 +702,7 @@
 const getBrands = async (filters = {}) => {
   const params = new URLSearchParams(filters);
   const baseUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://medicalbazzarnepal.com/api' 
+    ? 'https://dentalkartnepal.com/api' 
     : 'http://localhost:5000/api';
     
   const response = await fetch(`${baseUrl}/brands?${params}`);
@@ -734,7 +734,7 @@ console.log('Search results:', searchResults.data);</code></pre>
                         <pre><code class="language-javascript">const createBrand = async (brandData) => {
   const token = localStorage.getItem('authToken');
   const baseUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://medicalbazzarnepal.com/api' 
+    ? 'https://dentalkartnepal.com/api' 
     : 'http://localhost:5000/api';
   
   const response = await fetch(`${baseUrl}/brands`, {
@@ -777,7 +777,7 @@ const useBrands = (filters = {}) => {
         setLoading(true);
         const params = new URLSearchParams(filters);
         const baseUrl = process.env.NODE_ENV === 'production' 
-          ? 'https://medicalbazzarnepal.com/api' 
+          ? 'https://dentalkartnepal.com/api' 
           : 'http://localhost:5000/api';
           
         const response = await fetch(`${baseUrl}/brands?${params}`);
@@ -882,19 +882,19 @@ curl -X DELETE "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347" \
 
                         <h4>Production Environment (HTTPS)</h4>
                         <pre><code class="language-bash"># Get all brands
-curl -X GET "https://medicalbazzarnepal.com/api/brands"
+curl -X GET "https://dentalkartnepal.com/api/brands"
 
 # Get featured brands only
-curl -X GET "https://medicalbazzarnepal.com/api/brands?featured=true"
+curl -X GET "https://dentalkartnepal.com/api/brands?featured=true"
 
 # Search brands
-curl -X GET "https://medicalbazzarnepal.com/api/brands?search=medical"
+curl -X GET "https://dentalkartnepal.com/api/brands?search=medical"
 
 # Get brand by slug
-curl -X GET "https://medicalbazzarnepal.com/api/brands/slug/medtech-solutions"
+curl -X GET "https://dentalkartnepal.com/api/brands/slug/medtech-solutions"
 
 # Create brand (admin only)
-curl -X POST "https://medicalbazzarnepal.com/api/brands" \
+curl -X POST "https://dentalkartnepal.com/api/brands" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -904,7 +904,7 @@ curl -X POST "https://medicalbazzarnepal.com/api/brands" \
   }'
 
 # Update brand
-curl -X PUT "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+curl -X PUT "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -912,7 +912,7 @@ curl -X PUT "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" 
   }'
 
 # Delete brand
-curl -X DELETE "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+curl -X DELETE "https://dentalkartnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
 
                         <h4>Postman Collection Guide</h4>
