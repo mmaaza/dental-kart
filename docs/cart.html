@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart API - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html" class="active"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>🛒 Cart API</h1>
+                <p class="subtitle">Manage shopping cart items with real-time product validation and stock checking</p>
+            </header>
+
+            <div class="content-body">
+                <section class="cart-overview">
+                    <h2>Overview</h2>
+                    <p>The Cart API provides comprehensive shopping cart management with real-time product validation, stock checking, and automatic cleanup of invalid items. Carts are automatically created when users add their first item and persist across sessions.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Features</h3>
+                        <ul>
+                            <li><strong>Automatic Creation:</strong> Carts are created automatically when users add their first item</li>
+                            <li><strong>Real-time Validation:</strong> Products are validated for availability and stock on every operation</li>
+                            <li><strong>Product Attributes:</strong> Support for product variants like size, color, etc.</li>
+                            <li><strong>Stock Management:</strong> Automatic stock checking and quantity adjustment</li>
+                            <li><strong>Admin Oversight:</strong> Admins can view all user carts for support and analysis</li>
+                            <li><strong>Auto Cleanup:</strong> Invalid or discontinued products are automatically removed</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="user-endpoints">
+                    <h2>👤 User/Customer Cart Endpoints</h2>
+                    <p>These endpoints are available to authenticated users for managing their own shopping cart. All endpoints require user authentication.</p>
+                    
+                    <!-- Get User Cart -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/cart</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Get the current user's cart with all items and product details</p>
+                        
+                        <h4>Features:</h4>
+                        <ul>
+                            <li>Automatically creates empty cart if none exists</li>
+                            <li>Filters out inactive or deleted products</li>
+                            <li>Returns populated product information</li>
+                            <li>Auto-cleans invalid items</li>
+                        </ul>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/cart</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "_id": "64a1b2c3d4e5f6789012345",
+    "user": "64a1b2c3d4e5f6789012346",
+    "items": [
+      {
+        "_id": "64a1b2c3d4e5f6789012347",
+        "product": {
+          "_id": "64a1b2c3d4e5f6789012348",
+          "name": "Dental Handpiece",
+          "slug": "dental-handpiece",
+          "images": [
+            "http://localhost:5000/uploads/handpiece1.jpg"
+          ],
+          "regularPrice": 1500,
+          "specialOfferPrice": 1200,
+          "stock": 25,
+          "status": "active"
+        },
+        "quantity": 2,
+        "attributes": {
+          "size": "Standard",
+          "color": "Silver"
+        },
+        "addedAt": "2024-12-20T10:30:00.000Z"
+      }
+    ],
+    "totalItems": 2,
+    "createdAt": "2024-12-20T10:30:00.000Z",
+    "updatedAt": "2024-12-20T11:45:00.000Z"
+  },
+  "message": "Cart retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/cart</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Add a product to the user's cart or update quantity if already exists</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "productId": "64a1b2c3d4e5f6789012348",
+  "quantity": 2,
+  "attributes": {
+    "size": "Standard",
+    "color": "Silver",
+    "warranty": "2 years"
+  }
+}</code></pre>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "64a1b2c3d4e5f6789012348",
+    "quantity": 2,
+    "attributes": {
+      "size": "Standard",
+      "color": "Silver"
+    }
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "64a1b2c3d4e5f6789012348",
+    "quantity": 2,
+    "attributes": {
+      "size": "Standard",
+      "color": "Silver"
+    }
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/cart</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> Raw JSON with product details</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "_id": "64a1b2c3d4e5f6789012345",
+    "user": "64a1b2c3d4e5f6789012346",
+    "items": [
+      {
+        "_id": "64a1b2c3d4e5f6789012347",
+        "product": {
+          "_id": "64a1b2c3d4e5f6789012348",
+          "name": "Dental Handpiece",
+          "slug": "dental-handpiece",
+          "images": [...],
+          "regularPrice": 1500,
+          "specialOfferPrice": 1200,
+          "stock": 25,
+          "status": "active"
+        },
+        "quantity": 2,
+        "attributes": {
+          "size": "Standard",
+          "color": "Silver"
+        },
+        "addedAt": "2024-12-20T11:45:00.000Z"
+      }
+    ],
+    "totalItems": 2,
+    "updatedAt": "2024-12-20T11:45:00.000Z"
+  },
+  "message": "Product added to cart successfully"
+}</code></pre>
+
+                        <h4>Error Responses:</h4>
+                        <pre><code class="language-json">// Product not found
+{
+  "success": false,
+  "error": "Product not found"
+}
+
+// Product inactive
+{
+  "success": false,
+  "error": "Product is not available for purchase"
+}
+
+// Insufficient stock
+{
+  "success": false,
+  "error": "Not enough stock available"
+}</code></pre>
+                    </div>
+
+                    <!-- Update Cart Item -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <code>/cart/:itemId</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Update the quantity of a specific cart item</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "quantity": 5
+}</code></pre>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PUT "http://localhost:5000/api/cart/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "quantity": 5
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PUT "https://medicalbazzarnepal.com/api/cart/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "quantity": 5
+  }'</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    // Updated cart with new quantity
+  },
+  "message": "Cart item updated successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Remove Cart Item -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <code>/cart/:itemId</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Remove a specific item from the cart</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "http://localhost:5000/api/cart/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/cart/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    // Updated cart without the removed item
+  },
+  "message": "Item removed from cart successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Clear Cart -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <code>/cart</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Remove all items from the user's cart</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "http://localhost:5000/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/cart" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "_id": "64a1b2c3d4e5f6789012345",
+    "user": "64a1b2c3d4e5f6789012346",
+    "items": [],
+    "totalItems": 0,
+    "updatedAt": "2024-12-20T12:00:00.000Z"
+  },
+  "message": "Cart cleared successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Cart Cleanup -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <code>/cart/cleanup</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Clean up cart by removing invalid products or synchronizing with client-side cart</p>
+                        
+                        <h4>Use Cases:</h4>
+                        <ul>
+                            <li><strong>Automatic Cleanup:</strong> Remove deleted/inactive products (no body required)</li>
+                            <li><strong>Cart Sync:</strong> Synchronize server cart with client-side cart data</li>
+                            <li><strong>Product Validation:</strong> Ensure all items are still available</li>
+                        </ul>
+
+                        <h4>Request Body (Optional):</h4>
+                        <pre><code class="language-json">{
+  "items": [
+    {
+      "productId": "64a1b2c3d4e5f6789012348",
+      "quantity": 2,
+      "attributes": {
+        "size": "Standard",
+        "color": "Silver"
+      }
+    }
+  ]
+}</code></pre>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP) - Auto Cleanup</h5>
+                        <pre><code class="language-bash">curl -X PUT "http://localhost:5000/api/cart/cleanup" \
+  -H "Authorization: Bearer USER_TOKEN"</code></pre>
+                        
+                        <h5>Development (HTTP) - Cart Sync</h5>
+                        <pre><code class="language-bash">curl -X PUT "http://localhost:5000/api/cart/cleanup" \
+  -H "Authorization: Bearer USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "items": [
+      {
+        "productId": "64a1b2c3d4e5f6789012348",
+        "quantity": 2,
+        "attributes": {
+          "size": "Standard"
+        }
+      }
+    ]
+  }'</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    // Cleaned up cart with only valid items
+  },
+  "message": "Cart cleaned up successfully"
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="admin-endpoints">
+                    <h2>🔒 Admin Cart Management</h2>
+                    <p>These endpoints are available to administrators for viewing and managing user carts for support, analysis, and troubleshooting purposes.</p>
+                    
+                    <!-- Get All Carts -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/cart/admin/all</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Get all user carts with pagination (only non-empty carts)</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>page</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Page number (default: 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>limit</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Items per page (default: 10)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/cart/admin/all?page=1&limit=20" \
+  -H "Authorization: Bearer ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/cart/admin/all?page=1&limit=20" \
+  -H "Authorization: Bearer ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/cart/admin/all</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{adminToken}}</code></li>
+                                <li><strong>Query Params:</strong> page, limit (optional)</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "carts": [
+      {
+        "_id": "64a1b2c3d4e5f6789012345",
+        "user": {
+          "_id": "64a1b2c3d4e5f6789012346",
+          "name": "John Doe",
+          "email": "john@example.com"
+        },
+        "items": [
+          {
+            "_id": "64a1b2c3d4e5f6789012347",
+            "product": {
+              "_id": "64a1b2c3d4e5f6789012348",
+              "name": "Dental Handpiece",
+              "slug": "dental-handpiece",
+              "images": [...],
+              "regularPrice": 1500,
+              "specialOfferPrice": 1200
+            },
+            "quantity": 2,
+            "attributes": {...},
+            "addedAt": "2024-12-20T10:30:00.000Z"
+          }
+        ],
+        "totalItems": 2,
+        "createdAt": "2024-12-20T10:30:00.000Z",
+        "updatedAt": "2024-12-20T11:45:00.000Z"
+      }
+    ],
+    "pagination": {
+      "totalItems": 150,
+      "totalPages": 8,
+      "currentPage": 1,
+      "hasNextPage": true,
+      "hasPrevPage": false
+    }
+  },
+  "message": "User carts retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get User Cart by Admin -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/cart/admin/:userId</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Get a specific user's cart by user ID</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/cart/admin/64a1b2c3d4e5f6789012346" \
+  -H "Authorization: Bearer ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/cart/admin/64a1b2c3d4e5f6789012346" \
+  -H "Authorization: Bearer ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/cart/admin/{{userId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{adminToken}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>userId</code> - The target user's ID</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "_id": "64a1b2c3d4e5f6789012345",
+    "user": {
+      "_id": "64a1b2c3d4e5f6789012346",
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    "items": [
+      {
+        "_id": "64a1b2c3d4e5f6789012347",
+        "product": {
+          "_id": "64a1b2c3d4e5f6789012348",
+          "name": "Dental Handpiece",
+          "slug": "dental-handpiece",
+          "images": [...],
+          "regularPrice": 1500,
+          "specialOfferPrice": 1200,
+          "stock": 25,
+          "status": "active"
+        },
+        "quantity": 2,
+        "attributes": {
+          "size": "Standard",
+          "color": "Silver"
+        },
+        "addedAt": "2024-12-20T10:30:00.000Z"
+      }
+    ],
+    "totalItems": 2,
+    "createdAt": "2024-12-20T10:30:00.000Z",
+    "updatedAt": "2024-12-20T11:45:00.000Z"
+  },
+  "message": "User cart retrieved successfully"
+}</code></pre>
+
+                        <h4>Error Response:</h4>
+                        <pre><code class="language-json">{
+  "success": false,
+  "error": "Cart not found for this user"
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="cart-data-model">
+                    <h2>📊 Cart Data Model</h2>
+                    
+                    <div class="example-card">
+                        <h3>Cart Structure</h3>
+                        <pre><code class="language-json">{
+  "_id": "ObjectId",
+  "user": "ObjectId", // Reference to User
+  "items": [
+    {
+      "_id": "ObjectId", // Cart item ID
+      "product": "ObjectId", // Reference to Product
+      "quantity": "Number", // Minimum 1
+      "attributes": {
+        "size": "String",
+        "color": "String",
+        "warranty": "String"
+        // ... any custom attributes
+      },
+      "addedAt": "Date"
+    }
+  ],
+  "totalItems": "Number", // Virtual field
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Product Attributes System</h3>
+                        <p>Cart items support flexible product attributes using a Map structure. Common attributes include:</p>
+                        <ul>
+                            <li><strong>size:</strong> Product size (S, M, L, XL, etc.)</li>
+                            <li><strong>color:</strong> Product color</li>
+                            <li><strong>material:</strong> Product material</li>
+                            <li><strong>warranty:</strong> Warranty period</li>
+                            <li><strong>Custom attributes:</strong> Any key-value pairs as needed</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="code-examples">
+                    <h2>Code Examples</h2>
+                    
+                    <div class="example-card">
+                        <h3>JavaScript - Add to Cart</h3>
+                        <pre><code class="language-javascript">const addToCart = async (productId, quantity = 1, attributes = {}) => {
+  const token = localStorage.getItem('authToken');
+  
+  const response = await fetch('http://localhost:5000/api/cart', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      productId,
+      quantity,
+      attributes
+    })
+  });
+  
+  const data = await response.json();
+  
+  if (data.success) {
+    console.log('Product added to cart:', data.data);
+    return data.data;
+  } else {
+    throw new Error(data.error);
+  }
+};
+
+// Usage
+try {
+  const cart = await addToCart('64a1b2c3d4e5f6789012348', 2, {
+    size: 'Standard',
+    color: 'Silver',
+    warranty: '2 years'
+  });
+  console.log('Updated cart:', cart);
+} catch (error) {
+  console.error('Failed to add to cart:', error.message);
+}</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Cart Management Hook (React)</h3>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+const useCart = () => {
+  const [cart, setCart] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchCart = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch('/api/cart', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setCart(data.data);
+        setError(null);
+      } else {
+        setError(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addToCart = async (productId, quantity = 1, attributes = {}) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId, quantity, attributes })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setCart(data.data);
+        return data.data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const updateCartItem = async (itemId, quantity) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch(`/api/cart/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setCart(data.data);
+        return data.data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const removeFromCart = async (itemId) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch(`/api/cart/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setCart(data.data);
+        return data.data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const clearCart = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch('/api/cart', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setCart(data.data);
+        return data.data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  return {
+    cart,
+    loading,
+    error,
+    addToCart,
+    updateCartItem,
+    removeFromCart,
+    clearCart,
+    refreshCart: fetchCart
+  };
+};
+
+// Usage in component
+const CartComponent = () => {
+  const { 
+    cart, 
+    loading, 
+    error, 
+    addToCart, 
+    updateCartItem, 
+    removeFromCart 
+  } = useCart();
+
+  if (loading) return <div>Loading cart...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="cart">
+      <h2>Your Cart ({cart?.totalItems || 0} items)</h2>
+      {cart?.items.map(item => (
+        <div key={item._id} className="cart-item">
+          <h3>{item.product.name}</h3>
+          <p>Quantity: {item.quantity}</p>
+          <p>Price: ${item.product.specialOfferPrice || item.product.regularPrice}</p>
+          <button onClick={() => updateCartItem(item._id, item.quantity + 1)}>
+            +
+          </button>
+          <button onClick={() => updateCartItem(item._id, item.quantity - 1)}>
+            -
+          </button>
+          <button onClick={() => removeFromCart(item._id)}>
+            Remove
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};</code></pre>
+                    </div>
+                </section>
+
+                <section class="best-practices">
+                    <h2>📋 Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="practice-card">
+                            <h3>🛡️ Error Handling</h3>
+                            <ul>
+                                <li>Always check stock availability before adding to cart</li>
+                                <li>Handle product unavailability gracefully</li>
+                                <li>Implement retry logic for network errors</li>
+                                <li>Show clear error messages to users</li>
+                                <li>Validate quantities on client side</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h3>🔄 Cart Synchronization</h3>
+                            <ul>
+                                <li>Use cleanup endpoint to sync client and server carts</li>
+                                <li>Refresh cart after login to get latest state</li>
+                                <li>Handle cart merging for guest-to-authenticated users</li>
+                                <li>Implement optimistic updates with rollback</li>
+                                <li>Cache cart data locally for better UX</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h3>⚡ Performance Tips</h3>
+                            <ul>
+                                <li>Debounce quantity updates to reduce API calls</li>
+                                <li>Use pagination for admin cart listings</li>
+                                <li>Implement cart item lazy loading for large carts</li>
+                                <li>Cache product details to reduce data transfer</li>
+                                <li>Use WebSocket for real-time stock updates</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h3>🔐 Security Considerations</h3>
+                            <ul>
+                                <li>Always validate user ownership of cart operations</li>
+                                <li>Sanitize product attributes input</li>
+                                <li>Implement rate limiting for cart operations</li>
+                                <li>Validate product existence and availability server-side</li>
+                                <li>Log suspicious cart manipulation attempts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="orders.html" class="step-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Orders API</h3>
+                            <p>Convert cart items to orders</p>
+                        </a>
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>Browse products to add to cart</p>
+                        </a>
+                        <a href="authentication.html" class="step-card">
+                            <i class="fas fa-key"></i>
+                            <h3>Authentication</h3>
+                            <p>Learn about user authentication</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

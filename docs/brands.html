@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brands API - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html" class="active"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>© Brands API</h1>
+                <p class="subtitle">Manage product brands with featured status and comprehensive brand information</p>
+            </header>
+
+            <div class="content-body">
+                <section class="brands-overview">
+                    <h2>Overview</h2>
+                    <p>The Brands API provides comprehensive brand management for organizing products by manufacturer or brand identity. Brands can be featured for homepage display and include rich metadata for SEO optimization.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Features</h3>
+                        <ul>
+                            <li><strong>Featured Brands:</strong> Mark brands as featured for homepage and promotional display</li>
+                            <li><strong>SEO Optimization:</strong> Meta titles, descriptions, keywords, and custom slugs</li>
+                            <li><strong>Status Management:</strong> Active/inactive status control with toggle functionality</li>
+                            <li><strong>Search & Filter:</strong> Search by name, description, and tags with featured filtering</li>
+                            <li><strong>Rich Media:</strong> Brand logos and images with optimized display</li>
+                            <li><strong>Tag System:</strong> Organize brands with custom tags for easy categorization</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="public-endpoints">
+                    <h2>🌐 Public API Endpoints</h2>
+                    <p>These endpoints are publicly accessible and don't require authentication. Perfect for frontend applications displaying brands to customers.</p>
+                    
+                    <!-- Get Brands -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/brands</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Retrieve all active brands with optional filtering</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>featured</code></td>
+                                        <td>boolean</td>
+                                        <td>No</td>
+                                        <td>Filter by featured status (true/false)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>search</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Search in brand name, description, and tags</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands"</code></pre>
+                        
+                        <h5>Featured Brands Only</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands?featured=true"</code></pre>
+                        
+                        <h5>Search Brands</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands?search=medical"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands</code></li>
+                                <li><strong>Query Params:</strong> Add optional parameters as needed</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                            
+                            <h4>Query Parameters in Postman</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+                                <tr><td>featured</td><td>true</td><td>Get only featured brands</td></tr>
+                                <tr><td>search</td><td>medical</td><td>Search brands containing "medical"</td></tr>
+                            </table>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": [
+    {
+      "id": "64a1b2c3d4e5f6789012345",
+      "name": "MedTech Solutions",
+      "slug": "medtech-solutions",
+      "description": "Leading provider of medical equipment and diagnostic tools",
+      "picture": "/uploads/brands/medtech-logo.jpg",
+      "tags": ["medical", "diagnostic", "equipment"],
+      "featured": true
+    },
+    {
+      "id": "64a1b2c3d4e5f6789012346",
+      "name": "DentalCare Pro",
+      "slug": "dentalcare-pro",
+      "description": "Professional dental equipment manufacturer",
+      "picture": "/uploads/brands/dentalcare-logo.jpg",
+      "tags": ["dental", "professional", "equipment"],
+      "featured": false
+    }
+  ],
+  "message": "Brands retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get Brand by Slug -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/brands/slug/:slug</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single brand by its slug</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/slug/medtech-solutions"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/slug/medtech-solutions"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/slug/medtech-solutions</code></li>
+                                <li><strong>Path Variable:</strong> Replace <code>medtech-solutions</code> with actual brand slug</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "name": "MedTech Solutions",
+    "slug": "medtech-solutions",
+    "description": "Leading provider of medical equipment and diagnostic tools",
+    "picture": "/uploads/brands/medtech-logo.jpg",
+    "tags": ["medical", "diagnostic", "equipment"],
+    "featured": true,
+    "status": "active",
+    "createdAt": "2024-12-20T10:30:00.000Z"
+  },
+  "message": "Brand retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get Brand by ID -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/brands/:id</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single brand by its ID</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012345"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012345"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/{{brandId}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>brandId</code> - The brand's unique ID</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-endpoints">
+                    <h2>🔒 Admin API Endpoints</h2>
+                    <p>These endpoints require admin authentication and permissions. Used for brand management, creation, updates, and administrative tasks.</p>
+                    
+                    <!-- Create Brand -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/brands</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Create a new brand (admin only)</p>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/brands" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "SurgicalTech Pro",
+    "description": "Premium surgical instruments and equipment",
+    "picture": "/uploads/brands/surgicaltech-logo.jpg",
+    "tags": ["surgical", "premium", "instruments"],
+    "featured": true,
+    "status": "active",
+    "metaTitle": "SurgicalTech Pro - Premium Medical Equipment",
+    "metaDescription": "High-quality surgical instruments for medical professionals",
+    "keywords": ["surgical", "instruments", "medical", "premium"]
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/brands" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "SurgicalTech Pro",
+    "description": "Premium surgical instruments and equipment",
+    "featured": true
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> Select "raw" and "JSON" format</li>
+                            </ul>
+                            
+                            <h4>Body Parameters</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                <tr><td>name</td><td>string</td><td>Yes</td><td>Brand name (must be unique)</td></tr>
+                                <tr><td>description</td><td>string</td><td>No</td><td>Brand description</td></tr>
+                                <tr><td>picture</td><td>string</td><td>No</td><td>Brand logo/image URL</td></tr>
+                                <tr><td>tags</td><td>array</td><td>No</td><td>Array of tag strings</td></tr>
+                                <tr><td>featured</td><td>boolean</td><td>No</td><td>Featured status (default: false)</td></tr>
+                                <tr><td>status</td><td>string</td><td>No</td><td>"active" or "inactive" (default: active)</td></tr>
+                                <tr><td>metaTitle</td><td>string</td><td>No</td><td>SEO meta title</td></tr>
+                                <tr><td>metaDescription</td><td>string</td><td>No</td><td>SEO meta description</td></tr>
+                                <tr><td>keywords</td><td>string</td><td>No</td><td>SEO keywords</td></tr>
+                            </table>
+                        </div>
+                        
+                        <h4>Request Body (JSON):</h4>
+                        <pre><code class="language-json">{
+  "name": "SurgicalTech Pro",
+  "description": "Premium surgical instruments and equipment manufacturer specializing in innovative medical solutions",
+  "picture": "/uploads/brands/surgicaltech-logo.jpg",
+  "tags": ["surgical", "premium", "instruments", "medical", "innovative"],
+  "featured": true,
+  "status": "active",
+  "metaTitle": "SurgicalTech Pro - Premium Medical Equipment & Surgical Instruments",
+  "metaDescription": "Discover SurgicalTech Pro's premium surgical instruments and medical equipment designed for healthcare professionals worldwide.",
+  "keywords": "surgical instruments, medical equipment, premium healthcare, surgical tools"
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "name": "SurgicalTech Pro",
+    "slug": "surgicaltech-pro",
+    "description": "Premium surgical instruments and equipment manufacturer",
+    "picture": "/uploads/brands/surgicaltech-logo.jpg",
+    "tags": ["surgical", "premium", "instruments", "medical", "innovative"],
+    "featured": true,
+    "status": "active",
+    "metaTitle": "SurgicalTech Pro - Premium Medical Equipment",
+    "metaDescription": "High-quality surgical instruments for medical professionals",
+    "keywords": "surgical instruments, medical equipment, premium healthcare",
+    "createdAt": "2024-12-20T11:00:00.000Z",
+    "updatedAt": "2024-12-20T11:00:00.000Z"
+  },
+  "message": "Brand created successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Update Brand -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <code>/brands/:id</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Update an existing brand</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PUT "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Leading manufacturer of premium surgical instruments and equipment",
+    "featured": true,
+    "tags": ["surgical", "premium", "instruments", "medical", "leading"]
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PUT "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "featured": true
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PUT</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/{{brandId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with fields to update</li>
+                            </ul>
+                        </div>
+
+                        <h4>Request Body (JSON):</h4>
+                        <pre><code class="language-json">{
+  "description": "Leading manufacturer of premium surgical instruments and equipment",
+  "featured": true,
+  "tags": ["surgical", "premium", "instruments", "medical", "leading"],
+  "metaTitle": "SurgicalTech Pro - Leading Medical Equipment Manufacturer",
+  "metaDescription": "Discover premium surgical instruments from the leading manufacturer in medical equipment industry"
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "name": "SurgicalTech Pro",
+    "slug": "surgicaltech-pro",
+    "description": "Leading manufacturer of premium surgical instruments and equipment",
+    "featured": true,
+    "tags": ["surgical", "premium", "instruments", "medical", "leading"],
+    "status": "active",
+    "updatedAt": "2024-12-20T12:00:00.000Z"
+  },
+  "message": "Brand updated successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Toggle Brand Featured Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/brands/:id/toggle-featured</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Toggle brand featured status</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347/toggle-featured" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-featured" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/{{brandId}}/toggle-featured</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "featured": true,
+    "updatedAt": "2024-12-20T12:30:00.000Z"
+  },
+  "message": "Brand marked as featured"
+}</code></pre>
+                    </div>
+
+                    <!-- Toggle Brand Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/brands/:id/toggle-status</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Toggle brand between active and inactive status</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/{{brandId}}/toggle-status</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "status": "inactive",
+    "updatedAt": "2024-12-20T13:00:00.000Z"
+  },
+  "message": "Brand deactivated"
+}</code></pre>
+                    </div>
+
+                    <!-- Get Brands Admin -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/brands/admin/list</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Get all brands with admin-level details (includes inactive brands)</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>status</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Filter by status: "active", "inactive", or "all"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>featured</code></td>
+                                        <td>boolean</td>
+                                        <td>No</td>
+                                        <td>Filter by featured status</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>search</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Search in name, description, and tags</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/admin/list" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/admin/list?status=all&featured=true" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/admin/list</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Query Params:</strong> Add optional filters as needed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Get Brand Admin Detail -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/brands/admin/:id</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Get detailed brand information (admin view with all fields)</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/brands/admin/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/brands/admin/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/admin/{{brandId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>brandId</code> - The brand's unique ID</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Delete Brand -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <code>/brands/:id</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Delete a brand (admin only)</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> DELETE</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/brands/{{brandId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {},
+  "message": "Brand deleted successfully"
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Warning:</strong> Deleting a brand will affect all products associated with it. Consider updating product associations before deletion.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="brand-features">
+                    <h2>Brand Management Features</h2>
+                    <p>The Brands API includes several powerful features for effective brand management and organization.</p>
+
+                    <div class="attribute-example">
+                        <h3>Brand Data Structure</h3>
+                        <pre><code class="language-json">{
+  "id": "64a1b2c3d4e5f6789012345",
+  "name": "MedTech Solutions",
+  "slug": "medtech-solutions",
+  "description": "Leading provider of medical equipment and diagnostic tools",
+  "picture": "/uploads/brands/medtech-logo.jpg",
+  "tags": ["medical", "diagnostic", "equipment", "professional"],
+  "featured": true,
+  "status": "active",
+  "metaTitle": "MedTech Solutions - Medical Equipment Provider",
+  "metaDescription": "Discover professional medical equipment and diagnostic tools from MedTech Solutions",
+  "keywords": "medical equipment, diagnostic tools, healthcare technology",
+  "createdBy": "64a1b2c3d4e5f6789012340",
+  "createdAt": "2024-12-20T10:30:00.000Z",
+  "updatedAt": "2024-12-20T11:15:00.000Z"
+}</code></pre>
+
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><strong>Auto Slug Generation:</strong> SEO-friendly URLs automatically generated from brand names</li>
+                            <li><strong>Featured Status:</strong> Promote important brands for homepage and marketing display</li>
+                            <li><strong>Tag System:</strong> Flexible tagging for brand categorization and filtering</li>
+                            <li><strong>SEO Optimization:</strong> Complete meta information for search engine optimization</li>
+                            <li><strong>Status Control:</strong> Active/inactive status management with easy toggle</li>
+                            <li><strong>Rich Media Support:</strong> Brand logos and promotional images</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="code-examples">
+                    <h2>Code Examples</h2>
+                    
+                    <div class="example-card">
+                        <h3>JavaScript - Fetch Brands</h3>
+                        <pre><code class="language-javascript">// Get all active brands
+const getBrands = async (filters = {}) => {
+  const params = new URLSearchParams(filters);
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+    
+  const response = await fetch(`${baseUrl}/brands?${params}`);
+  return response.json();
+};
+
+// Get featured brands only
+const getFeaturedBrands = async () => {
+  return getBrands({ featured: 'true' });
+};
+
+// Search brands
+const searchBrands = async (query) => {
+  return getBrands({ search: query });
+};
+
+// Usage
+const allBrands = await getBrands();
+const featuredBrands = await getFeaturedBrands();
+const searchResults = await searchBrands('medical');
+
+console.log('All brands:', allBrands.data);
+console.log('Featured brands:', featuredBrands.data);
+console.log('Search results:', searchResults.data);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Create Brand</h3>
+                        <pre><code class="language-javascript">const createBrand = async (brandData) => {
+  const token = localStorage.getItem('authToken');
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+  
+  const response = await fetch(`${baseUrl}/brands`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(brandData)
+  });
+  
+  return response.json();
+};
+
+// Usage
+const newBrand = await createBrand({
+  name: 'HealthTech Innovations',
+  description: 'Cutting-edge medical technology solutions',
+  picture: '/uploads/brands/healthtech-logo.jpg',
+  tags: ['medical', 'technology', 'innovation'],
+  featured: true,
+  metaTitle: 'HealthTech Innovations - Medical Technology Solutions',
+  metaDescription: 'Discover innovative medical technology solutions from HealthTech Innovations',
+  keywords: 'medical technology, healthcare innovation, medical devices'
+});</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>React Hook - Brands</h3>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+const useBrands = (filters = {}) => {
+  const [brands, setBrands] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams(filters);
+        const baseUrl = process.env.NODE_ENV === 'production' 
+          ? 'https://medicalbazzarnepal.com/api' 
+          : 'http://localhost:5000/api';
+          
+        const response = await fetch(`${baseUrl}/brands?${params}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setBrands(data.data);
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBrands();
+  }, [JSON.stringify(filters)]);
+
+  return { brands, loading, error };
+};
+
+// Usage in component
+const BrandsList = ({ featured = false }) => {
+  const { brands, loading, error } = useBrands({ 
+    ...(featured && { featured: 'true' }) 
+  });
+
+  if (loading) return <div>Loading brands...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="brands-grid">
+      {brands.map(brand => (
+        <div key={brand.id} className="brand-card">
+          <img src={brand.picture} alt={brand.name} />
+          <h3>{brand.name}</h3>
+          <p>{brand.description}</p>
+          {brand.featured && <span className="featured-badge">Featured</span>}
+        </div>
+      ))}
+    </div>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Complete cURL Examples</h3>
+                        
+                        <h4>Development Environment (HTTP)</h4>
+                        <pre><code class="language-bash"># Get all brands
+curl -X GET "http://localhost:5000/api/brands"
+
+# Get featured brands only
+curl -X GET "http://localhost:5000/api/brands?featured=true"
+
+# Search brands
+curl -X GET "http://localhost:5000/api/brands?search=medical"
+
+# Get brand by slug
+curl -X GET "http://localhost:5000/api/brands/slug/medtech-solutions"
+
+# Get brand by ID
+curl -X GET "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012345"
+
+# Create brand (admin only)
+curl -X POST "http://localhost:5000/api/brands" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "HealthTech Pro",
+    "description": "Professional healthcare technology",
+    "featured": true,
+    "tags": ["healthcare", "technology", "professional"]
+  }'
+
+# Update brand
+curl -X PUT "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Leading healthcare technology provider",
+    "featured": true
+  }'
+
+# Toggle featured status
+curl -X PATCH "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347/toggle-featured" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Toggle brand status
+curl -X PATCH "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Get brands (admin view)
+curl -X GET "http://localhost:5000/api/brands/admin/list?status=all" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Delete brand
+curl -X DELETE "http://localhost:5000/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Production Environment (HTTPS)</h4>
+                        <pre><code class="language-bash"># Get all brands
+curl -X GET "https://medicalbazzarnepal.com/api/brands"
+
+# Get featured brands only
+curl -X GET "https://medicalbazzarnepal.com/api/brands?featured=true"
+
+# Search brands
+curl -X GET "https://medicalbazzarnepal.com/api/brands?search=medical"
+
+# Get brand by slug
+curl -X GET "https://medicalbazzarnepal.com/api/brands/slug/medtech-solutions"
+
+# Create brand (admin only)
+curl -X POST "https://medicalbazzarnepal.com/api/brands" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "HealthTech Pro",
+    "description": "Professional healthcare technology",
+    "featured": true
+  }'
+
+# Update brand
+curl -X PUT "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "featured": true
+  }'
+
+# Delete brand
+curl -X DELETE "https://medicalbazzarnepal.com/api/brands/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Collection Guide</h4>
+                        <div class="postman-guide">
+                            <h4>Environment Variables</h4>
+                            <ul>
+                                <li><code>baseUrl</code>: API base URL for your environment</li>
+                                <li><code>authToken</code>: Admin JWT token for protected endpoints</li>
+                                <li><code>brandId</code>: Sample brand ID for testing</li>
+                                <li><code>brandSlug</code>: Sample brand slug for testing</li>
+                            </ul>
+                            
+                            <h4>Collection Structure</h4>
+                            <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal Brands API",
+    "description": "Complete Brands API endpoints"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{"key": "token", "value": "{{authToken}}"}]
+  },
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Get All Brands",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/brands"
+          }
+        },
+        {
+          "name": "Get Featured Brands",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/brands?featured=true"
+          }
+        },
+        {
+          "name": "Get Brand by Slug",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/brands/slug/{{brandSlug}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Endpoints",
+      "item": [
+        {
+          "name": "Create Brand",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/brands",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ]
+          }
+        },
+        {
+          "name": "Toggle Featured Status",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/brands/{{brandId}}/toggle-featured"
+          }
+        }
+      ]
+    }
+  ]
+}</code></pre>
+                            
+                            <h4>Auto-save Brand ID Test</h4>
+                            <p>Add this to Tests tab of create brand request:</p>
+                            <pre><code class="language-javascript">if (pm.response.code === 200 || pm.response.code === 201) {
+    const response = pm.response.json();
+    if (response.success && response.data.id) {
+        pm.environment.set("brandId", response.data.id);
+        pm.environment.set("brandSlug", response.data.slug);
+        console.log("Brand ID saved:", response.data.id);
+        console.log("Brand slug saved:", response.data.slug);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>See how products use brands</p>
+                        </a>
+                        <a href="orders.html" class="step-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Orders API</h3>
+                            <p>Handle brand-based orders</p>
+                        </a>
+                        <a href="search.html" class="step-card">
+                            <i class="fas fa-search"></i>
+                            <h3>Search API</h3>
+                            <p>Search products by brand</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

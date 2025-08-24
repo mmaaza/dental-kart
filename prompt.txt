@@ -1,0 +1,1 @@
+create the account overiew page while keeping #file:DashboardLayout.jsx in mind and #file:design-system.txt and #file:tailwind.config.js too. and add their configure them properly in #file:App.jsx 

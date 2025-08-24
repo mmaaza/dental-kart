@@ -1,0 +1,247 @@
+# MBNEPAL MEDICAL E-COMMERCE DESIGN GUIDELINES
+
+This document provides comprehensive design guidelines for the MBNEPAL medical e-commerce platform, extracted from the existing codebase to ensure consistency in future development.
+
+## COLOR SYSTEM
+
+### Primary Colors
+- Primary (Orange)
+  - Main: #f97316 (primary-500)
+  - Light: #ffedd5 (primary-100)
+  - Dark: #c2410c (primary-700)
+  - Lightest background: #fff7ed (primary-50)
+
+### Secondary Colors
+- Secondary (Red)
+  - Main: #ef4444 (secondary-500)
+  - Light: #fee2e2 (secondary-100)
+  - Dark: #b91c1c (secondary-700)
+
+### Accent Colors
+- Accent (Yellow)
+  - Main: #eab308 (accent-400)
+  - Light: #fef9c3 (accent-100)
+  - Dark: #a16207 (accent-700)
+
+### Admin Color System
+- Prussian Blue: #012a4a (admin-prussian-500)
+- Indigo: #013a63 (admin-indigo-500)
+- UCLA Blue: #2a6f97 (admin-ucla-500)
+- Cerulean: #2c7da0 (admin-cerulean-500)
+- Sky: #89c2d9 (admin-sky-500)
+- Light: #a9d6e5 (admin-light-500)
+
+### Neutral Colors
+- Slate
+  - Main Text: #475569 (admin-slate-800)
+  - Secondary Text: #64748b (admin-slate-500)
+  - Border: #e2e8f0 (admin-slate-200)
+  - Background Light: #f8fafc (admin-slate-50)
+  - Background Dark: #0f172a (admin-slate-900)
+
+## TYPOGRAPHY
+
+### Font Families
+- Sans-serif: 'Inter', sans-serif (body text)
+- Heading: 'Poppins', sans-serif (headers)
+
+### Font Sizes
+- 2xs: 0.625rem (10px) - Used for very small labels, badges
+- xs: 0.75rem (12px) - Small text, secondary information
+- sm: 0.875rem (14px) - Body text on mobile
+- base: 1rem (16px) - Standard body text
+- lg: 1.125rem (18px) - Large body text, small headings
+- xl: 1.25rem (20px) - Section titles on mobile
+- 2xl: 1.5rem (24px) - Section titles on desktop
+- 3xl: 1.875rem (30px) - Page headings
+- 4xl: 2.25rem (36px) - Large headers
+
+### Mobile-specific Text Sizes
+- mobile-h1: 2rem (32px)
+- mobile-h2: 1.5rem (24px)
+- mobile-h3: 1.25rem (20px)
+- mobile-h4: 1.125rem (18px)
+- mobile-body: 1rem (16px)
+- mobile-small: 0.875rem (14px)
+
+### Text Styles
+- Heading (Titles): font-heading font-bold text-admin-slate-800
+- Subheading: text-admin-slate-500 font-normal
+- Body: text-admin-slate-800 
+- Secondary text: text-admin-slate-500
+- Links: text-primary-600 hover:text-primary-700
+
+## SPACING
+
+### General Spacing Scale
+- Base: 0.25rem (4px) units
+- Standard mobile padding: 0.75rem (12px)
+- Standard container padding: 1rem (16px)
+
+### Section Padding
+- Mobile: py-6 (1.5rem / 24px)
+- Tablet: sm:py-8 (2rem / 32px)
+- Desktop: md:py-10 (2.5rem / 40px) to lg:py-12 (3rem / 48px)
+
+### Container Width
+- Container: container mx-auto px-4
+- Container padding by screen size:
+  - Default: 1rem (16px)
+  - sm: 1.5rem (24px)
+  - md: 2rem (32px)
+  - lg: 4rem (64px)
+  - xl: 5rem (80px)
+
+### Element Spacing
+- Stacked elements spacing: mb-2 to mb-6
+- Heading bottom margin: mb-2 to mb-4
+- Button padding: py-2 px-3.5 (small) to py-3 px-6 (large)
+- Card padding: p-3.5 to p-5
+
+## COMPONENTS
+
+### Buttons
+
+#### Primary Button
+```
+<button className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white py-2 px-3.5 rounded-mobile text-xs font-medium transition duration-300 flex items-center shadow-sm">
+  <svg className="w-3.5 h-3.5 mr-1.5">...</svg>
+  Button Text
+</button>
+```
+
+#### Secondary Button
+```
+<a className="inline-flex items-center justify-center px-4 py-2 border border-primary-500 text-primary-600 font-medium rounded-mobile hover:bg-primary-50 transition-colors text-sm">
+  Button Text
+  <svg className="w-4 h-4 ml-1.5">...</svg>
+</a>
+```
+
+### Cards
+
+#### Product Card
+- Shadow: shadow-mobile hover:shadow-mobile-lg
+- Border radius: rounded-mobile-lg
+- Image height: h-40 xs:h-44 sm:h-48 md:h-52 lg:h-56 object-cover
+- Title: text-sm xs:text-base font-medium text-admin-slate-800 mb-1.5 line-clamp-2
+- Price: text-base xs:text-lg font-bold text-primary-600
+
+#### Category Card
+- Padding: p-3 xs:p-4
+- Image/icon container: mb-3
+- Title: text-sm xs:text-base text-admin-slate-800 font-medium text-center
+- Product count: text-2xs xs:text-xs text-admin-slate-500
+
+#### Flash Deal Card
+- Image: h-48 sm:h-52 md:h-56 lg:h-64 object-cover
+- Time left badge: absolute top-3 right-3 bg-secondary-500 text-white
+- Wishlist button: absolute top-3 left-3
+- Prices: text-base xs:text-lg font-bold text-primary-600 (sale price) and text-2xs xs:text-xs text-admin-slate-500 line-through (original price)
+
+### Badges & Tags
+- Discount badge: bg-secondary-500 text-white text-2xs xs:text-xs font-medium px-2 py-0.5 rounded-mobile shadow-sm
+- Category tag: text-2xs text-admin-slate-500 bg-admin-slate-100 px-1.5 py-0.5 rounded-full
+- Rating: flex of svg stars in text-accent-400 fill-current
+
+### Form Elements
+- Input: h-12 px-4 rounded-mobile text-admin-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500
+- Form layout: flex flex-col sm:flex-row gap-3
+
+## RESPONSIVE DESIGN
+
+### Breakpoints
+- xs: 380px (Extra small devices)
+- sm: 640px (Small devices)
+- md: 768px (Medium devices)
+- lg: 1024px (Large devices)
+- xl: 1280px (Extra large devices)
+- 2xl: 1536px (2X large devices)
+
+### Responsive Patterns
+
+#### Grid Systems
+- Mobile: grid grid-cols-2 gap-3
+- Tablet: sm:grid-cols-3 sm:gap-4
+- Desktop: lg:grid-cols-4 md:gap-6
+
+#### Grid Item Sizing
+- Product cards: w-full
+
+#### Mobile Swiper
+- Mobile only: block md:hidden
+- Swiper settings:
+  - spaceBetween: 10
+  - slidesPerView: 2.2
+  - pagination: { clickable: true }
+  - className: "category-swiper"
+  - breakpoints for finer control
+
+#### Desktop Grid
+- Desktop only: hidden md:grid
+- Grid columns: md:grid-cols-4 lg:grid-cols-5 gap-4
+
+## SPECIAL SECTIONS
+
+### Hero Section
+- Image height: h-40 xs:h-48 sm:h-64 md:h-80 lg:h-96 object-cover
+- Text overlay: absolute inset-0 bg-gradient-to-r from-black/60 to-transparent
+- Heading: text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white
+- Hero button: bg-primary-500 hover:bg-primary-600 text-white text-xs xs:text-sm md:text-base rounded-mobile
+
+### Feature Banner Section
+- Layout: grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6
+- Feature box: bg-primary-50 p-4 md:p-6 rounded-mobile-lg
+- Icon: p-3 rounded-full bg-primary-100 with text-primary-500 icon
+
+### Newsletter Section
+- Background: bg-admin-prussian-500
+- Text: text-white and text-admin-light-900
+- Button: bg-primary-500 hover:bg-primary-600
+
+### Brands Section
+- Brand logo container: grayscale hover:grayscale-0 transition-all duration-300
+- Brand logo: max-h-8 sm:max-h-12 object-contain
+
+## ANIMATIONS & TRANSITIONS
+
+### Transitions
+- Hover effects: transition-colors duration-300
+- Shadow transitions: transition-shadow duration-300
+
+### Loading States
+- Skeleton loaders: bg-gray-200 animate-pulse
+- Different shapes: w-16 h-16, h-4 w-3/4, h-3 w-1/2
+
+## SHADOWS AND EFFECTS
+
+### Box Shadows
+- Cards: shadow-mobile hover:shadow-mobile-lg
+- Buttons: shadow-sm
+- Mobile-specific:
+  - mobile: '0 2px 8px rgba(0, 0, 0, 0.12)'
+  - mobile-lg: '0 4px 12px rgba(0, 0, 0, 0.15)'
+
+### Border Radius
+- Default: rounded-mobile (0.5rem / 8px)
+- Large: rounded-mobile-lg (1rem / 16px)
+- Full rounded: rounded-mobile-full (9999px)
+
+## ICONS
+
+- Icon sizing:
+  - Small: w-3.5 h-3.5
+  - Medium: w-4 h-4
+  - Large: w-6 h-6
+- Icon placement in buttons: mr-1.5 for left icons, ml-1.5 for right icons
+- Common icons: cart, heart (wishlist), star (rating), arrow-right, clock
+
+## Z-INDEX LAYERING
+
+- Behind content: -1
+- Default content: 1
+- Sticky elements: 100
+- Header: 1000
+- Modal/overlay: 1100-1200
+- Toast notifications: 1300
+- Tooltips: 1400

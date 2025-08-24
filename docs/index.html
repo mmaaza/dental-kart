@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Kart Nepal - API v2 Documentation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dental Kart Nepal API v2</h1>
+                <p class="subtitle">Comprehensive e-commerce platform for medical supplies and equipment</p>
+                <div class="header-actions">
+                    <a href="quickstart.html" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </a>
+                    <a href="examples.html" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> View Examples
+                    </a>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h2>🚀 Welcome to API v2</h2>
+                        <p>This is the complete documentation for Dental Kart Nepal's API v2.0, featuring enhanced product management, vendor systems, advanced search, and real-time communication features.</p>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">API Endpoints</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">User Roles</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Availability</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="features-section">
+                    <h2>✨ What's New in v2</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3>Product Approval System</h3>
+                            <p>Vendors can submit products for admin approval with draft management</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <h3>Advanced Order Management</h3>
+                            <p>Sub-orders per vendor with tracking and status management</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Real-time Chat</h3>
+                            <p>Built-in chat system for customer support and vendor communication</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Smart Search</h3>
+                            <p>Fuzzy search across products, brands, and categories</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Notification System</h3>
+                            <p>Comprehensive notification management for all users</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3>Dynamic Settings</h3>
+                            <p>Configurable homepage and SEO settings</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="quick-links">
+                    <h2>🔗 Quick Navigation</h2>
+                    <div class="links-grid">
+                        <a href="authentication.html" class="link-card">
+                            <i class="fas fa-key"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <a href="products.html" class="link-card">
+                            <i class="fas fa-box"></i>
+                            <span>Products</span>
+                        </a>
+                        <a href="orders.html" class="link-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Orders</span>
+                        </a>
+                        <a href="vendors.html" class="link-card">
+                            <i class="fas fa-store"></i>
+                            <span>Vendors</span>
+                        </a>
+                        <a href="examples.html" class="link-card">
+                            <i class="fas fa-code"></i>
+                            <span>Code Examples</span>
+                        </a>
+                        <a href="errors.html" class="link-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Error Codes</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="api-info">
+                    <h2>📋 API Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>Dev Base URL:</strong>
+                            <code>http://localhost:5000/api</code>
+                        </div>
+                        <div class="info-item">
+                            <strong>Prod Base URL:</strong>
+                            <code>https://medicalbazzarnepal.com/api</code>
+                        </div>
+                        <div class="info-item">
+                            <strong>Version:</strong>
+                            <span>2.0</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Authentication:</strong>
+                            <span>JWT Bearer Token</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Response Format:</strong>
+                            <span>JSON</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Rate Limiting:</strong>
+                            <span>100-5000 req/min</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Last Updated:</strong>
+                            <span>December 2024</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Examples Include:</strong>
+                            <span>cURL, Postman, JavaScript</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="documentation-features">
+                    <h2>🛠️ Documentation Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h3>cURL Examples</h3>
+                            <p>Complete cURL examples for both HTTP (development) and HTTPS (production) environments</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <h3>Postman Integration</h3>
+                            <p>Step-by-step Postman setup guides with collection examples and auto-testing scripts</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Multiple Languages</h3>
+                            <p>JavaScript, React, React Native, and Axios implementation examples</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Ready to Use</h3>
+                            <p>Copy-paste ready code examples with environment-specific configurations</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

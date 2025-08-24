@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html" class="active"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>🔐 Authentication</h1>
+                <p class="subtitle">Learn how to authenticate with the DK Nepal API using JWT tokens</p>
+            </header>
+
+            <div class="content-body">
+                <section class="auth-overview">
+                    <h2>Overview</h2>
+                    <p>The DK Nepal API uses JWT (JSON Web Tokens) for authentication. All protected endpoints require a valid Bearer token in the Authorization header.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Points</h3>
+                        <ul>
+                            <li>JWT tokens expire after 24 hours</li>
+                            <li>Include token in <code>Authorization: Bearer &lt;token&gt;</code> header</li>
+                            <li>Three user roles: <code>user</code>, <code>vendor</code>, <code>admin</code></li>
+                            <li>Email verification required for full access</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="auth-flow">
+                    <h2>Authentication Flow</h2>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Register/Login</h4>
+                                <p>User provides credentials</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Receive Token</h4>
+                                <p>Server returns JWT token</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Use Token</h4>
+                                <p>Include in API requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="auth-endpoints">
+                    <h2>Authentication Endpoints</h2>
+                    
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/auth/register</code>
+                        </div>
+                        <p>Register a new user account</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword123"
+}</code></pre>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "message": "OTP sent to your email"
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Note:</strong> After registration, an OTP is sent to the user's email for verification.</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/auth/verify-email</code>
+                        </div>
+                        <p>Verify user's email using OTP</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "email": "john@example.com",
+  "otp": "123456"
+}</code></pre>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "isEmailVerified": true
+  }
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Note:</strong> This endpoint returns the JWT token needed for authenticated requests.</p>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/auth/login</code>
+                        </div>
+                        <p>Authenticate existing user</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "email": "john@example.com",
+  "password": "securepassword123"
+}</code></pre>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "isEmailVerified": true
+  }
+}</code></pre>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/auth/me</code>
+                        </div>
+                        <p>Get current user's profile</p>
+                        
+                        <h4>Headers:</h4>
+                        <pre><code class="language-http">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "isEmailVerified": true,
+    "phone": "+977-9841234567",
+    "address": "123 Main St",
+    "city": "Kathmandu"
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="token-usage">
+                    <h2>Using the JWT Token</h2>
+                    
+                    <div class="usage-examples">
+                        <h3>cURL Examples</h3>
+                        
+                        <h4>Development (HTTP)</h4>
+                        <pre><code class="language-bash"># Login to get token
+curl -X POST "http://localhost:5000/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123"
+  }'
+
+# Use token in authenticated requests
+curl -X GET "http://localhost:5000/api/auth/me" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json"</code></pre>
+
+                        <h4>Production (HTTPS)</h4>
+                        <pre><code class="language-bash"># Login to get token
+curl -X POST "https://medicalbazzarnepal.com/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123"
+  }'
+
+# Use token in authenticated requests
+curl -X GET "https://medicalbazzarnepal.com/api/auth/me" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json"</code></pre>
+
+                        <h3>Postman Usage Guide</h3>
+                        <div class="postman-guide">
+                            <h4>Step 1: Setup Environment</h4>
+                            <ul>
+                                <li>Create a new environment in Postman</li>
+                                <li>Add variable <code>baseUrl</code> with value <code>http://localhost:5000/api</code> (dev) or <code>https://medicalbazzarnepal.com/api</code> (prod)</li>
+                                <li>Add variable <code>authToken</code> (leave empty initially)</li>
+                            </ul>
+
+                            <h4>Step 2: Login Request</h4>
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/auth/login</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body (JSON):</strong></li>
+                            </ul>
+                            <pre><code class="language-json">{
+  "email": "user@example.com",
+  "password": "password123"
+}</code></pre>
+
+                            <h4>Step 3: Auto-Save Token (Tests Tab)</h4>
+                            <pre><code class="language-javascript">// Add this to the Tests tab of login request
+if (pm.response.code === 200) {
+    const response = pm.response.json();
+    if (response.success && response.token) {
+        pm.environment.set("authToken", response.token);
+        console.log("Token saved:", response.token);
+    }
+}</code></pre>
+
+                            <h4>Step 4: Use Token in Other Requests</h4>
+                            <ul>
+                                <li><strong>Authorization Tab:</strong> Select "Bearer Token"</li>
+                                <li><strong>Token:</strong> <code>{{authToken}}</code></li>
+                                <li>Or manually add header: <code>Authorization: Bearer {{authToken}}</code></li>
+                            </ul>
+
+                            <h4>Step 5: Import Collection</h4>
+                            <p>You can create a Postman collection with all endpoints:</p>
+                            <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal API v2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    }
+  ]
+}</code></pre>
+                        </div>
+
+                        <h3>JavaScript/Fetch Example</h3>
+                        <pre><code class="language-javascript">// Store token after login
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+localStorage.setItem('authToken', token);
+
+// Use token in requests (both HTTP and HTTPS)
+const baseUrl = process.env.NODE_ENV === 'production' 
+  ? 'https://medicalbazzarnepal.com/api' 
+  : 'http://localhost:5000/api';
+
+const response = await fetch(`${baseUrl}/auth/me`, {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
+});
+
+const data = await response.json();</code></pre>
+
+                        <h3>Axios Example</h3>
+                        <pre><code class="language-javascript">import axios from 'axios';
+
+// Configure base URL
+const api = axios.create({
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api'
+});
+
+// Set default authorization header
+api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+// Make authenticated request
+const response = await api.get('/auth/me');</code></pre>
+
+                        <h3>React Native Example</h3>
+                        <pre><code class="language-javascript">import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Store token
+await AsyncStorage.setItem('authToken', token);
+
+// Configure API URL
+const API_BASE = __DEV__ 
+  ? 'http://10.0.2.2:5000/api'  // Android emulator
+  : 'https://medicalbazzarnepal.com/api';
+
+// Use token in requests
+const response = await fetch(`${API_BASE}/auth/me`, {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
+});</code></pre>
+                    </div>
+                </section>
+
+                <section class="token-management">
+                    <h2>Token Management Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="practice-card">
+                            <h3>🔒 Secure Storage</h3>
+                            <ul>
+                                <li><strong>Web:</strong> Use localStorage or sessionStorage</li>
+                                <li><strong>Mobile:</strong> Use AsyncStorage, Keychain, or Keystore</li>
+                                <li><strong>Never:</strong> Store tokens in plain text variables</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h3>⏰ Expiration Handling</h3>
+                            <ul>
+                                <li>Check token expiration before requests</li>
+                                <li>Implement automatic logout on 401 errors</li>
+                                <li>Redirect to login when token expires</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-card">
+                            <h3>🔄 Automatic Token Injection</h3>
+                            <ul>
+                                <li>Use interceptors for automatic header injection</li>
+                                <li>Create reusable API client classes</li>
+                                <li>Handle token refresh if needed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Complete API Client Example</h3>
+                    <pre><code class="language-javascript">class ApiClient {
+  constructor() {
+    this.baseURL = 'http://localhost:5000/api';
+    this.token = localStorage.getItem('authToken');
+  }
+
+  setToken(token) {
+    this.token = token;
+    localStorage.setItem('authToken', token);
+  }
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseURL}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      ...options.headers
+    };
+
+    const response = await fetch(url, { ...options, headers });
+    
+    if (response.status === 401) {
+      // Token expired or invalid
+      this.logout();
+      throw new Error('Authentication required');
+    }
+    
+    return response.json();
+  }
+
+  logout() {
+    this.token = null;
+    localStorage.removeItem('authToken');
+    window.location.href = '/login';
+  }
+
+  // Convenience methods
+  async get(endpoint) {
+    return this.request(endpoint, { method: 'GET' });
+  }
+
+  async post(endpoint, data) {
+    return this.request(endpoint, { 
+      method: 'POST', 
+      body: JSON.stringify(data) 
+    });
+  }
+
+  async put(endpoint, data) {
+    return this.request(endpoint, { 
+      method: 'PUT', 
+      body: JSON.stringify(data) 
+    });
+  }
+
+  async delete(endpoint) {
+    return this.request(endpoint, { method: 'DELETE' });
+  }
+}
+
+// Usage
+const api = new ApiClient();
+const products = await api.get('/products');
+const newProduct = await api.post('/products', productData);</code></pre>
+                </section>
+
+                <section class="error-handling">
+                    <h2>Authentication Error Handling</h2>
+                    
+                    <div class="error-examples">
+                        <h3>Common Authentication Errors</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Status Code</th>
+                                    <th>Error Type</th>
+                                    <th>Description</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>401</td>
+                                    <td>Unauthorized</td>
+                                    <td>Missing or invalid token</td>
+                                    <td>Redirect to login</td>
+                                </tr>
+                                <tr>
+                                    <td>403</td>
+                                    <td>Forbidden</td>
+                                    <td>Insufficient permissions</td>
+                                    <td>Check user role</td>
+                                </tr>
+                                <tr>
+                                    <td>400</td>
+                                    <td>Bad Request</td>
+                                    <td>Invalid credentials</td>
+                                    <td>Check input format</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Error Response Format</h3>
+                        <pre><code class="language-json">{
+  "success": false,
+  "error": "Not authorized to access this route",
+  "statusCode": 401
+}</code></pre>
+
+                        <h3>Error Handling Example</h3>
+                        <pre><code class="language-javascript">try {
+  const response = await api.get('/protected-endpoint');
+  // Handle success
+} catch (error) {
+  if (error.response?.status === 401) {
+    // Token expired or invalid
+    api.logout();
+    window.location.href = '/login';
+  } else if (error.response?.status === 403) {
+    // Insufficient permissions
+    showError('You do not have permission to access this resource');
+  } else {
+    // Other errors
+    showError('An error occurred. Please try again.');
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="quickstart.html" class="step-card">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Quick Start Guide</h3>
+                            <p>Learn how to make your first API call</p>
+                        </a>
+                        <a href="examples.html" class="step-card">
+                            <i class="fas fa-code"></i>
+                            <h3>Code Examples</h3>
+                            <p>View complete working examples</p>
+                        </a>
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>Start building with products</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

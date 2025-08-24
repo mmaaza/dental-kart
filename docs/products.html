@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products API - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html" class="active"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>📦 Products API</h1>
+                <p class="subtitle">Manage products, inventory, and product approval workflow</p>
+            </header>
+
+            <div class="content-body">
+                <section class="products-overview">
+                    <h2>Overview</h2>
+                    <p>The Products API provides comprehensive product management capabilities including creation, updates, approval workflow, and draft management. Products can be created by vendors and require admin approval before going live.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Features</h3>
+                        <ul>
+                            <li><strong>Draft System:</strong> Create products as drafts before publishing</li>
+                            <li><strong>Approval Workflow:</strong> Admin approval required for vendor products</li>
+                            <li><strong>Attribute Management:</strong> Hierarchical product attributes and variants</li>
+                            <li><strong>Stock Management:</strong> Real-time inventory tracking</li>
+                            <li><strong>Image Management:</strong> Multiple product images with optimization</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="public-endpoints">
+                    <h2>🌐 Public API Endpoints</h2>
+                    <p>These endpoints are publicly accessible and don't require authentication. Perfect for frontend applications displaying products to customers.</p>
+                    
+                    <!-- Get Products -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/products</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Retrieve products with filtering, sorting, and pagination</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>category</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Category ID to filter by</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>brand</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Brand ID to filter by</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>search</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Search term for product names</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>minPrice</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Minimum price filter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>maxPrice</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Maximum price filter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sortBy</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Sort field (name, price, createdAt)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>page</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Page number (default: 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>limit</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Items per page (default: 10)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products?category=64a1b2c3d4e5f6789012345&minPrice=100&maxPrice=1000&sortBy=price&page=1&limit=20"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products?category=64a1b2c3d4e5f6789012345&minPrice=100&maxPrice=1000&sortBy=price&page=1&limit=20"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products</code></li>
+                                <li><strong>Params Tab:</strong> Add query parameters as key-value pairs</li>
+                            </ul>
+                            
+                            <h4>Query Parameters in Postman</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+                                <tr><td>category</td><td>64a1b2c3d4e5f6789012345</td><td>Category filter</td></tr>
+                                <tr><td>minPrice</td><td>100</td><td>Minimum price</td></tr>
+                                <tr><td>maxPrice</td><td>1000</td><td>Maximum price</td></tr>
+                                <tr><td>sortBy</td><td>price</td><td>Sort field</td></tr>
+                                <tr><td>page</td><td>1</td><td>Page number</td></tr>
+                                <tr><td>limit</td><td>20</td><td>Items per page</td></tr>
+                            </table>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "products": [
+      {
+        "id": "64a1b2c3d4e5f6789012345",
+        "name": "Dental Handpiece",
+        "slug": "dental-handpiece",
+        "description": "High-speed dental handpiece for professional use",
+        "regularPrice": 1500,
+        "specialOfferPrice": 1200,
+        "categories": ["64a1b2c3d4e5f6789012345"],
+        "brand": "64a1b2c3d4e5f6789012345",
+        "vendor": "64a1b2c3d4e5f6789012345",
+        "stock": 25,
+        "images": [
+          "http://localhost:5000/uploads/products/handpiece1.jpg",
+          "http://localhost:5000/uploads/products/handpiece2.jpg"
+        ],
+        "status": "active",
+        "isDraft": false,
+        "approvalStatus": "approved",
+        "attributes": [
+          {
+            "parentAttribute": {
+              "name": "Speed",
+              "values": ["300,000 RPM", "400,000 RPM"]
+            },
+            "childAttributes": [
+              {
+                "name": "Color",
+                "values": ["Silver", "Gold"],
+                "parentValueIndex": 0
+              }
+            ]
+          }
+        ],
+        "createdAt": "2024-12-20T10:30:00.000Z",
+        "updatedAt": "2024-12-20T10:30:00.000Z"
+      }
+    ],
+    "pagination": {
+      "total": 150,
+      "page": 1,
+      "pages": 8,
+      "limit": 20
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Get Product by Slug -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/products/slug/:slug</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single product by its slug</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products/slug/dental-handpiece"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products/slug/dental-handpiece"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products/slug/dental-handpiece</code></li>
+                                <li><strong>Path Variable:</strong> Replace <code>dental-handpiece</code> with actual product slug</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "name": "Dental Handpiece",
+    "slug": "dental-handpiece",
+    "description": "High-speed dental handpiece for professional use",
+    "regularPrice": 1500,
+    "specialOfferPrice": 1200,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "vendor": "64a1b2c3d4e5f6789012345",
+    "stock": 25,
+    "images": [
+      "http://localhost:5000/uploads/products/handpiece1.jpg",
+      "http://localhost:5000/uploads/products/handpiece2.jpg"
+    ],
+    "status": "active",
+    "isDraft": false,
+    "approvalStatus": "approved",
+    "attributes": [...],
+    "reviews": [...],
+    "createdAt": "2024-12-20T10:30:00.000Z",
+    "updatedAt": "2024-12-20T10:30:00.000Z"
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Get Product by ID -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/products/:id</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single product by its ID</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products/{{productId}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>productId</code> - The product's unique ID</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Get Related Products -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/products/:id/related</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get products related to a specific product</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345/related?limit=5"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345/related?limit=5"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products/{{productId}}/related</code></li>
+                                <li><strong>Query Params:</strong> <code>limit</code> (optional, default: 10)</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-endpoints">
+                    <h2>🔒 Admin/Vendor API Endpoints</h2>
+                    <p>These endpoints require authentication and proper permissions. Used for product management, creation, updates, and administrative tasks.</p>
+                    
+                    <!-- Create Product -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/products</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Create a new product (admin/vendor only)</p>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/products" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dental Handpiece Pro",
+    "description": "Professional dental handpiece with advanced features",
+    "regularPrice": 2000,
+    "specialOfferPrice": 1800,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "stock": 50,
+    "images": ["handpiece-pro1.jpg", "handpiece-pro2.jpg"],
+    "status": "active",
+    "isDraft": false
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/products" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dental Handpiece Pro",
+    "description": "Professional dental handpiece with advanced features",
+    "regularPrice": 2000,
+    "specialOfferPrice": 1800,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "stock": 50,
+    "images": ["handpiece-pro1.jpg", "handpiece-pro2.jpg"],
+    "status": "active",
+    "isDraft": false
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> Select "raw" and "JSON" format</li>
+                            </ul>
+                            
+                            <h4>Pre-request Script (Auto-add auth header)</h4>
+                            <pre><code class="language-javascript">// Add this to Pre-request Script tab
+pm.request.headers.upsert({
+    key: 'Authorization',
+    value: 'Bearer ' + pm.environment.get('authToken')
+});</code></pre>
+                        </div>
+                        
+                        <h4>Request Body (JSON):</h4>
+                        <pre><code class="language-json">{
+  "name": "Dental Handpiece Pro",
+  "description": "Professional dental handpiece with advanced features",
+  "regularPrice": 2000,
+  "specialOfferPrice": 1800,
+  "categories": ["64a1b2c3d4e5f6789012345"],
+  "brand": "64a1b2c3d4e5f6789012345",
+  "stock": 50,
+  "images": [
+    "http://localhost:5000/uploads/products/handpiece-pro1.jpg",
+    "http://localhost:5000/uploads/products/handpiece-pro2.jpg"
+  ],
+  "status": "active",
+  "isDraft": false,
+  "attributes": [
+    {
+      "parentAttribute": {
+        "name": "Speed",
+        "values": ["300,000 RPM", "400,000 RPM", "500,000 RPM"]
+      },
+      "childAttributes": [
+        {
+          "name": "Color",
+          "values": ["Silver", "Gold", "Black"],
+          "parentValueIndex": 0
+        },
+        {
+          "name": "Material",
+          "values": ["Stainless Steel", "Titanium"],
+          "parentValueIndex": 1
+        }
+      ]
+    }
+  ],
+  "specifications": {
+    "weight": "150g",
+    "dimensions": "120x25x25mm",
+    "power": "24V",
+    "warranty": "2 years"
+  }
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012346",
+    "name": "Dental Handpiece Pro",
+    "slug": "dental-handpiece-pro",
+    "description": "Professional dental handpiece with advanced features",
+    "regularPrice": 2000,
+    "specialOfferPrice": 1800,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "vendor": "64a1b2c3d4e5f6789012345",
+    "stock": 50,
+    "images": [...],
+    "status": "active",
+    "isDraft": false,
+    "approvalStatus": "pending",
+    "attributes": [...],
+    "createdAt": "2024-12-20T11:00:00.000Z",
+    "updatedAt": "2024-12-20T11:00:00.000Z"
+  },
+  "message": "Product created successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Update Product -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <code>/products/:id</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Update an existing product</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "name": "Dental Handpiece Pro X",
+  "specialOfferPrice": 1600,
+  "stock": 75,
+  "specifications": {
+    "weight": "150g",
+    "dimensions": "120x25x25mm",
+    "power": "24V",
+    "warranty": "3 years",
+    "features": ["LED Light", "Auto-stop", "Ergonomic Design"]
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Toggle Product Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/products/:id/toggle-status</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Toggle product between active and inactive status</p>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "status": "inactive",
+    "updatedAt": "2024-12-20T12:00:00.000Z"
+  },
+  "message": "Product status updated successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Approve Product (Admin Only) -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/products/:id/approve</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Approve a pending product (admin only)</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "approvalStatus": "approved",
+  "approvalNotes": "Product meets all quality standards"
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "approvalStatus": "approved",
+    "status": "active",
+    "approvedAt": "2024-12-20T13:00:00.000Z",
+    "approvedBy": "64a1b2c3d4e5f6789012345"
+  },
+  "message": "Product approved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Draft Management -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/products/drafts/list</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Get list of draft products</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <ul>
+                            <li><code>vendor</code> - Filter by vendor ID (admin only)</li>
+                            <li><code>page</code> - Page number</li>
+                            <li><code>limit</code> - Items per page</li>
+                        </ul>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/products/:id/publish</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Publish a draft product</p>
+                        
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "isDraft": false,
+    "status": "active",
+    "publishedAt": "2024-12-20T14:00:00.000Z"
+  },
+  "message": "Product published successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Delete Product -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <code>/products/:id</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Delete a product (admin/vendor only)</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> DELETE</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/products/{{productId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "message": "Product deleted successfully"
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="product-attributes">
+                    <h2>Product Attributes System</h2>
+                    <p>The product attributes system allows for hierarchical organization of product variations, making it easy to manage complex products with multiple options.</p>
+
+                    <div class="attribute-example">
+                        <h3>Attribute Structure Example</h3>
+                        <pre><code class="language-json">{
+  "attributes": [
+    {
+      "parentAttribute": {
+        "name": "Size",
+        "values": ["Small", "Medium", "Large"]
+      },
+      "childAttributes": [
+        {
+          "name": "Color",
+          "values": ["Red", "Blue", "Green"],
+          "parentValueIndex": 0
+        },
+        {
+          "name": "Material",
+          "values": ["Cotton", "Polyester"],
+          "parentValueIndex": 1
+        }
+      ]
+    }
+  ]
+}</code></pre>
+
+                        <h4>How It Works:</h4>
+                        <ul>
+                            <li><strong>Parent Attributes:</strong> Main product characteristics (Size, Brand, etc.)</li>
+                            <li><strong>Child Attributes:</strong> Sub-characteristics that depend on parent values</li>
+                            <li><strong>parentValueIndex:</strong> Links child attributes to specific parent values</li>
+                            <li><strong>Variants:</strong> Automatically generated combinations for inventory tracking</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="code-examples">
+                    <h2>Code Examples</h2>
+                    
+                    <div class="example-card">
+                        <h3>JavaScript - Fetch Products</h3>
+                        <pre><code class="language-javascript">// Get products with filters
+const getProducts = async (filters = {}) => {
+  const params = new URLSearchParams(filters);
+  const response = await fetch(`http://localhost:5000/api/products?${params}`);
+  return response.json();
+};
+
+// Usage
+const products = await getProducts({
+  category: '64a1b2c3d4e5f6789012345',
+  minPrice: 100,
+  maxPrice: 1000,
+  sortBy: 'price',
+  page: 1,
+  limit: 20
+});
+
+console.log(products.data.products);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Create Product</h3>
+                        <pre><code class="language-javascript">const createProduct = async (productData) => {
+  const token = localStorage.getItem('authToken');
+  
+  const response = await fetch('http://localhost:5000/api/products', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(productData)
+  });
+  
+  return response.json();
+};
+
+// Usage
+const newProduct = await createProduct({
+  name: 'Dental Mirror',
+  description: 'Professional dental mirror',
+  regularPrice: 500,
+  categories: ['64a1b2c3d4e5f6789012345'],
+  brand: '64a1b2c3d4e5f6789012345',
+  stock: 100,
+  images: ['mirror1.jpg', 'mirror2.jpg'],
+  status: 'active',
+  isDraft: false
+});</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>React Hook - Products</h3>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+const useProducts = (filters = {}) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams(filters);
+        const response = await fetch(`/api/products?${params}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setProducts(data.data.products);
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [filters]);
+
+  return { products, loading, error };
+};
+
+// Usage in component
+const ProductList = () => {
+  const { products, loading, error } = useProducts({
+    category: '64a1b2c3d4e5f6789012345',
+    limit: 12
+  });
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="products-grid">
+      {products.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>cURL - Complete Examples</h3>
+                        
+                        <h4>Development Environment (HTTP)</h4>
+                        <pre><code class="language-bash"># Get all products
+curl -X GET "http://localhost:5000/api/products"
+
+# Get products by category with filters
+curl -X GET "http://localhost:5000/api/products?category=64a1b2c3d4e5f6789012345&minPrice=100&maxPrice=2000"
+
+# Search products
+curl -X GET "http://localhost:5000/api/products?search=dental&sortBy=price&page=1&limit=20"
+
+# Get product by slug
+curl -X GET "http://localhost:5000/api/products/slug/dental-handpiece"
+
+# Create product (requires auth)
+curl -X POST "http://localhost:5000/api/products" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dental Scaler",
+    "description": "Professional dental scaler",
+    "regularPrice": 800,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "stock": 50,
+    "status": "active"
+  }'
+
+# Update product
+curl -X PUT "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "stock": 75,
+    "specialOfferPrice": 700
+  }'
+
+# Toggle product status
+curl -X PATCH "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345/toggle-status" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# Approve product (admin only)
+curl -X PATCH "http://localhost:5000/api/products/64a1b2c3d4e5f6789012345/approve" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "approvalStatus": "approved",
+    "approvalNotes": "Product approved"
+  }'</code></pre>
+
+                        <h4>Production Environment (HTTPS)</h4>
+                        <pre><code class="language-bash"># Get all products
+curl -X GET "https://medicalbazzarnepal.com/api/products"
+
+# Get products by category with filters
+curl -X GET "https://medicalbazzarnepal.com/api/products?category=64a1b2c3d4e5f6789012345&minPrice=100&maxPrice=2000"
+
+# Search products
+curl -X GET "https://medicalbazzarnepal.com/api/products?search=dental&sortBy=price&page=1&limit=20"
+
+# Get product by slug
+curl -X GET "https://medicalbazzarnepal.com/api/products/slug/dental-handpiece"
+
+# Create product (requires auth)
+curl -X POST "https://medicalbazzarnepal.com/api/products" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dental Scaler",
+    "description": "Professional dental scaler",
+    "regularPrice": 800,
+    "categories": ["64a1b2c3d4e5f6789012345"],
+    "brand": "64a1b2c3d4e5f6789012345",
+    "stock": 50,
+    "status": "active"
+  }'
+
+# Update product
+curl -X PUT "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "stock": 75,
+    "specialOfferPrice": 700
+  }'
+
+# Toggle product status
+curl -X PATCH "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345/toggle-status" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# Approve product (admin only)
+curl -X PATCH "https://medicalbazzarnepal.com/api/products/64a1b2c3d4e5f6789012345/approve" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "approvalStatus": "approved",
+    "approvalNotes": "Product approved"
+  }'</code></pre>
+
+                        <h4>Postman Collection Guide</h4>
+                        <div class="postman-guide">
+                            <h4>Complete Setup for Products API</h4>
+                            
+                            <h5>1. Environment Variables</h5>
+                            <ul>
+                                <li><code>baseUrl</code>: <code>http://localhost:5000/api</code> (dev) or <code>https://medicalbazzarnepal.com/api</code> (prod)</li>
+                                <li><code>authToken</code>: Your JWT token from login</li>
+                                <li><code>productId</code>: Sample product ID for testing</li>
+                                <li><code>categoryId</code>: Sample category ID for filtering</li>
+                            </ul>
+                            
+                            <h5>2. Collection Structure</h5>
+                            <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal Products API",
+    "description": "Complete Products API endpoints"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{"key": "token", "value": "{{authToken}}"}]
+  },
+  "item": [
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products"
+      }
+    },
+    {
+      "name": "Get Product by Slug",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products/slug/:slug"
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/products",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"}
+        ]
+      }
+    }
+  ]
+}</code></pre>
+                            
+                            <h5>3. Auto-save Product ID Test</h5>
+                            <p>Add this to Tests tab of create product request:</p>
+                            <pre><code class="language-javascript">if (pm.response.code === 200 || pm.response.code === 201) {
+    const response = pm.response.json();
+    if (response.success && response.data.id) {
+        pm.environment.set("productId", response.data.id);
+        console.log("Product ID saved:", response.data.id);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="categories.html" class="step-card">
+                            <i class="fas fa-tags"></i>
+                            <h3>Categories API</h3>
+                            <p>Learn about product categorization</p>
+                        </a>
+                        <a href="brands.html" class="step-card">
+                            <i class="fas fa-copyright"></i>
+                            <h3>Brands API</h3>
+                            <p>Manage product brands</p>
+                        </a>
+                        <a href="orders.html" class="step-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Orders API</h3>
+                            <p>Handle product orders</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

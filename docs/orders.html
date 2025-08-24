@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders API - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html" class="active"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>🛒 Orders API</h1>
+                <p class="subtitle">Complete order management system with vendor support, payment processing, and status tracking</p>
+            </header>
+
+            <div class="content-body">
+                <section class="orders-overview">
+                    <h2>Overview</h2>
+                    <p>The Orders API provides a comprehensive order management system supporting multi-vendor orders, payment processing with screenshots, status tracking, and automated vendor notifications. Orders are automatically split by vendor for efficient fulfillment.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Features</h3>
+                        <ul>
+                            <li><strong>Multi-Vendor Support:</strong> Orders automatically split into sub-orders per vendor</li>
+                            <li><strong>Payment Methods:</strong> Support for "pay-now" with screenshot upload and "pay-later" options</li>
+                            <li><strong>Status Tracking:</strong> Real-time order status updates with tracking numbers</li>
+                            <li><strong>Stock Management:</strong> Automatic stock reduction and restoration on cancellation</li>
+                            <li><strong>Vendor Notifications:</strong> Automated email notifications to vendors for new orders</li>
+                            <li><strong>Admin Dashboard:</strong> Complete order management with filtering and search capabilities</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="public-endpoints">
+                    <h2>👤 User/Customer API Endpoints</h2>
+                    <p>These endpoints are for authenticated customers to manage their orders. Requires user authentication.</p>
+                    
+                    <!-- Create Order -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/orders</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Create a new order from user's cart with payment screenshot upload</p>
+                        
+                        <h4>Request Content-Type:</h4>
+                        <p><code>multipart/form-data</code> (for payment screenshot upload)</p>
+                        
+                        <h4>Form Fields:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>shippingDetails</code></td>
+                                        <td>JSON string</td>
+                                        <td>Yes</td>
+                                        <td>Shipping information (see structure below)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>paymentMethod</code></td>
+                                        <td>string</td>
+                                        <td>Yes</td>
+                                        <td>"pay-now" or "pay-later"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>paymentScreenshot</code></td>
+                                        <td>file</td>
+                                        <td>No</td>
+                                        <td>Payment proof image (required for pay-now)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>Shipping Details Structure:</h4>
+                        <pre><code class="language-json">{
+  "fullName": "John Doe",
+  "email": "john@example.com",
+  "phone": "+977-9841234567",
+  "address": "Thamel Street, House No. 123",
+  "city": "Kathmandu",
+  "province": "Bagmati",
+  "postalCode": "44600"
+}</code></pre>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP) - Pay Now with Screenshot</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -F 'shippingDetails={"fullName":"John Doe","email":"john@example.com","phone":"+977-9841234567","address":"Thamel Street, House No. 123","city":"Kathmandu","province":"Bagmati","postalCode":"44600"}' \
+  -F 'paymentMethod=pay-now' \
+  -F 'paymentScreenshot=@/path/to/payment-screenshot.jpg'</code></pre>
+                        
+                        <h5>Production (HTTPS) - Pay Later</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -F 'shippingDetails={"fullName":"John Doe","email":"john@example.com","phone":"+977-9841234567","address":"Thamel Street, House No. 123","city":"Kathmandu","province":"Bagmati"}' \
+  -F 'paymentMethod=pay-later'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Body:</strong> Select "form-data"</li>
+                            </ul>
+                            
+                            <h4>Form Data Fields</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Key</th><th>Type</th><th>Value</th></tr>
+                                <tr><td>shippingDetails</td><td>Text</td><td>JSON string with shipping info</td></tr>
+                                <tr><td>paymentMethod</td><td>Text</td><td>pay-now or pay-later</td></tr>
+                                <tr><td>paymentScreenshot</td><td>File</td><td>Upload image file (optional)</td></tr>
+                            </table>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "orderNumber": "MB202412201234567",
+    "user": "64a1b2c3d4e5f6789012340",
+    "items": [
+      {
+        "product": "64a1b2c3d4e5f6789012341",
+        "quantity": 2,
+        "price": 1500,
+        "attributes": {"size": "M", "color": "Blue"}
+      }
+    ],
+    "subtotal": 3000,
+    "shipping": 150,
+    "total": 3150,
+    "orderStatus": "pending",
+    "paymentStatus": "processing",
+    "paymentMethod": "pay-now",
+    "paymentScreenshot": "/uploads/payments/1234567890-payment.jpg",
+    "shippingDetails": {
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "phone": "+977-9841234567",
+      "address": "Thamel Street, House No. 123",
+      "city": "Kathmandu",
+      "province": "Bagmati"
+    },
+    "vendors": ["64a1b2c3d4e5f6789012342"],
+    "subOrders": [
+      {
+        "vendor": "64a1b2c3d4e5f6789012342",
+        "items": [...],
+        "subtotal": 3000,
+        "status": "pending"
+      }
+    ],
+    "createdAt": "2024-12-20T11:00:00.000Z"
+  },
+  "message": "Order placed successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get User Orders -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/orders</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Get all orders for the authenticated user</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "orders": [
+      {
+        "id": "64a1b2c3d4e5f6789012345",
+        "orderNumber": "MB202412201234567",
+        "total": 3150,
+        "orderStatus": "processing",
+        "paymentStatus": "paid",
+        "createdAt": "2024-12-20T11:00:00.000Z",
+        "items": [
+          {
+            "product": {
+              "id": "64a1b2c3d4e5f6789012341",
+              "name": "Dental Handpiece",
+              "slug": "dental-handpiece",
+              "images": ["handpiece1.jpg"]
+            },
+            "quantity": 2,
+            "price": 1500
+          }
+        ]
+      }
+    ]
+  },
+  "message": "Orders retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Get Order by ID -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/orders/:id</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Get detailed information about a specific order</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/{{orderId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>orderId</code> - The order's unique ID</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "order": {
+      "id": "64a1b2c3d4e5f6789012345",
+      "orderNumber": "MB202412201234567",
+      "user": {
+        "id": "64a1b2c3d4e5f6789012340",
+        "name": "John Doe",
+        "email": "john@example.com"
+      },
+      "items": [...],
+      "subOrders": [
+        {
+          "vendor": {
+            "id": "64a1b2c3d4e5f6789012342",
+            "name": "MedTech Solutions",
+            "email": "vendor@medtech.com"
+          },
+          "items": [...],
+          "subtotal": 3000,
+          "status": "processing",
+          "trackingNumber": "TRK123456789",
+          "estimatedDeliveryDate": "2024-12-25T00:00:00.000Z"
+        }
+      ],
+      "subtotal": 3000,
+      "shipping": 150,
+      "total": 3150,
+      "orderStatus": "processing",
+      "paymentStatus": "paid",
+      "paymentMethod": "pay-now",
+      "shippingDetails": {...},
+      "createdAt": "2024-12-20T11:00:00.000Z"
+    }
+  },
+  "message": "Order retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Cancel Order -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/orders/:id/cancel</code>
+                            <span class="protected">Protected</span>
+                        </div>
+                        <p>Cancel an order (if not yet shipped) and restore product stock</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "cancelReason": "Changed mind about the purchase"
+}</code></pre>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/cancel" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cancelReason": "Changed mind about the purchase"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345/cancel" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cancelReason": "No longer needed"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/{{orderId}}/cancel</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with cancel reason</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "orderStatus": "cancelled",
+    "cancelReason": "Changed mind about the purchase",
+    "cancelledAt": "2024-12-20T14:30:00.000Z",
+    "cancelledBy": "customer"
+  },
+  "message": "Order cancelled successfully"
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Note:</strong> Cancelling an order automatically restores product stock levels. Orders that have been shipped cannot be cancelled.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-endpoints">
+                    <h2>🔒 Admin/Vendor API Endpoints</h2>
+                    <p>These endpoints require admin or vendor authentication for order management, status updates, and administrative tasks.</p>
+                    
+                    <!-- Get All Orders (Admin) -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/orders/admin/all</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Get all orders with filtering and pagination (admin only)</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>status</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Filter by order status</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>paymentStatus</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Filter by payment status</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>startDate</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Start date filter (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>endDate</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>End date filter (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>search</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Search by order number</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>page</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Page number (default: 1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>limit</code></td>
+                                        <td>number</td>
+                                        <td>No</td>
+                                        <td>Items per page (default: 10)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/orders/admin/all?status=pending&page=1&limit=20" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/orders/admin/all?startDate=2024-12-01&endDate=2024-12-31" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/admin/all</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Query Params:</strong> Add filters as needed</li>
+                                <li><strong>Admin access required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "orders": [
+      {
+        "id": "64a1b2c3d4e5f6789012345",
+        "orderNumber": "MB202412201234567",
+        "user": {
+          "id": "64a1b2c3d4e5f6789012340",
+          "name": "John Doe",
+          "email": "john@example.com"
+        },
+        "total": 3150,
+        "orderStatus": "pending",
+        "paymentStatus": "processing",
+        "paymentMethod": "pay-now",
+        "createdAt": "2024-12-20T11:00:00.000Z",
+        "subOrders": [...]
+      }
+    ],
+    "pagination": {
+      "total": 250,
+      "page": 1,
+      "limit": 20,
+      "pages": 13
+    }
+  },
+  "message": "Orders retrieved successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Update Order Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/orders/:id/status</code>
+                            <span class="protected">Admin/Vendor</span>
+                        </div>
+                        <p>Update order status with tracking information (admin/vendor)</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "orderStatus": "shipped",
+  "trackingNumber": "TRK123456789",
+  "estimatedDeliveryDate": "2024-12-25"
+}</code></pre>
+                        
+                        <h4>Order Status Values:</h4>
+                        <ul>
+                            <li><code>pending</code> - Order placed, awaiting processing</li>
+                            <li><code>processing</code> - Order being prepared</li>
+                            <li><code>shipped</code> - Order shipped to customer</li>
+                            <li><code>delivered</code> - Order delivered successfully</li>
+                            <li><code>cancelled</code> - Order cancelled</li>
+                        </ul>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderStatus": "shipped",
+    "trackingNumber": "TRK123456789",
+    "estimatedDeliveryDate": "2024-12-25"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderStatus": "delivered"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/{{orderId}}/status</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with status and tracking info</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "orderStatus": "shipped",
+    "trackingNumber": "TRK123456789",
+    "estimatedDeliveryDate": "2024-12-25T00:00:00.000Z",
+    "updatedAt": "2024-12-20T15:30:00.000Z"
+  },
+  "message": "Order status updated successfully"
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Vendor Note:</strong> Vendors can only update their own sub-orders. Admin can update any order.</p>
+                            <p><strong>Payment Auto-Update:</strong> When marked as "delivered", pay-later orders automatically become "paid".</p>
+                        </div>
+                    </div>
+
+                    <!-- Update Payment Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/orders/:id/payment</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Update payment status (admin only)</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "paymentStatus": "paid"
+}</code></pre>
+                        
+                        <h4>Payment Status Values:</h4>
+                        <ul>
+                            <li><code>pending</code> - Payment not yet received</li>
+                            <li><code>processing</code> - Payment being verified</li>
+                            <li><code>paid</code> - Payment confirmed</li>
+                            <li><code>failed</code> - Payment failed</li>
+                            <li><code>refunded</code> - Payment refunded</li>
+                        </ul>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/payment" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentStatus": "paid"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345/payment" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentStatus": "failed"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/{{orderId}}/payment</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with payment status</li>
+                                <li><strong>Admin access required</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Get Vendor Orders -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/orders/vendor</code>
+                            <span class="vendor">Vendor Only</span>
+                        </div>
+                        <p>Get orders for the authenticated vendor</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/orders/vendor" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/orders/vendor" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/vendor</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{vendorToken}}</code></li>
+                                <li><strong>Vendor access required</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Get Vendor Order by ID -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/orders/vendor/:id</code>
+                            <span class="vendor">Vendor Only</span>
+                        </div>
+                        <p>Get detailed vendor-specific order information</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/orders/vendor/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/orders/vendor/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/vendor/{{orderId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{vendorToken}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>orderId</code> - The order's unique ID</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Status Update -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/orders/vendor/:id/status</code>
+                            <span class="vendor">Vendor Only</span>
+                        </div>
+                        <p>Update vendor's sub-order status (vendor only)</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "orderStatus": "shipped",
+  "trackingNumber": "VENDOR-TRK123",
+  "estimatedDeliveryDate": "2024-12-25"
+}</code></pre>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/orders/vendor/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderStatus": "shipped",
+    "trackingNumber": "VENDOR-TRK123"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/orders/vendor/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderStatus": "delivered"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/vendor/{{orderId}}/status</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{vendorToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with status and tracking info</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Test Vendor Email -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/orders/test-vendor-email</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Test vendor email notification system (admin only)</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "orderId": "64a1b2c3d4e5f6789012345"
+}</code></pre>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/orders/test-vendor-email" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderId": "64a1b2c3d4e5f6789012345"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/test-vendor-email</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with order ID</li>
+                                <li><strong>Admin access required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "message": "Vendor email sent successfully",
+    "vendorCount": 2
+  },
+  "message": "Vendor email test completed"
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="order-workflow">
+                    <h2>Order Workflow & Structure</h2>
+                    <p>Understanding the complete order lifecycle from creation to delivery, including multi-vendor handling.</p>
+
+                    <div class="attribute-example">
+                        <h3>Multi-Vendor Order Structure</h3>
+                        <pre><code class="language-json">{
+  "id": "64a1b2c3d4e5f6789012345",
+  "orderNumber": "MB202412201234567",
+  "user": "64a1b2c3d4e5f6789012340",
+  "items": [
+    {
+      "product": "64a1b2c3d4e5f6789012341",
+      "quantity": 2,
+      "price": 1500,
+      "attributes": {"size": "M", "color": "Blue"}
+    },
+    {
+      "product": "64a1b2c3d4e5f6789012342",
+      "quantity": 1,
+      "price": 800,
+      "attributes": {}
+    }
+  ],
+  "subOrders": [
+    {
+      "vendor": "64a1b2c3d4e5f6789012350",
+      "items": [
+        {
+          "product": "64a1b2c3d4e5f6789012341",
+          "quantity": 2,
+          "price": 1500
+        }
+      ],
+      "subtotal": 3000,
+      "status": "shipped",
+      "trackingNumber": "VENDOR1-TRK123",
+      "estimatedDeliveryDate": "2024-12-25T00:00:00.000Z"
+    },
+    {
+      "vendor": "64a1b2c3d4e5f6789012351",
+      "items": [
+        {
+          "product": "64a1b2c3d4e5f6789012342",
+          "quantity": 1,
+          "price": 800
+        }
+      ],
+      "subtotal": 800,
+      "status": "processing",
+      "trackingNumber": null,
+      "estimatedDeliveryDate": null
+    }
+  ],
+  "subtotal": 3800,
+  "shipping": 150,
+  "total": 3950,
+  "orderStatus": "processing",
+  "paymentStatus": "paid",
+  "paymentMethod": "pay-now",
+  "paymentScreenshot": "/uploads/payments/1234567890-payment.jpg",
+  "vendors": ["64a1b2c3d4e5f6789012350", "64a1b2c3d4e5f6789012351"],
+  "shippingDetails": {
+    "fullName": "John Doe",
+    "email": "john@example.com",
+    "phone": "+977-9841234567",
+    "address": "Thamel Street, House No. 123",
+    "city": "Kathmandu",
+    "province": "Bagmati",
+    "postalCode": "44600"
+  },
+  "createdAt": "2024-12-20T11:00:00.000Z",
+  "updatedAt": "2024-12-20T15:30:00.000Z"
+}</code></pre>
+
+                        <h4>Key Workflow Features:</h4>
+                        <ul>
+                            <li><strong>Automatic Sub-Order Creation:</strong> Orders with products from multiple vendors are automatically split</li>
+                            <li><strong>Independent Status Tracking:</strong> Each vendor can update their sub-order status independently</li>
+                            <li><strong>Parent Status Derivation:</strong> Main order status is derived from sub-order statuses</li>
+                            <li><strong>Stock Management:</strong> Product stock is reduced on order creation and restored on cancellation</li>
+                            <li><strong>Payment Auto-Update:</strong> Pay-later orders automatically become paid when delivered</li>
+                            <li><strong>Vendor Notifications:</strong> Automated email notifications sent to vendors for new orders</li>
+                        </ul>
+                    </div>
+
+                    <div class="attribute-example">
+                        <h3>Order Status Flow</h3>
+                        <pre><code class="language-mermaid">graph LR
+    A[Order Created] --> B[Pending]
+    B --> C[Processing]
+    C --> D[Shipped]
+    D --> E[Delivered]
+    
+    B --> F[Cancelled]
+    C --> F
+    
+    E --> G[Payment: Paid]
+    
+    style A fill:#e1f5fe
+    style E fill:#e8f5e8
+    style F fill:#ffebee
+    style G fill:#f3e5f5</code></pre>
+
+                        <h4>Status Descriptions:</h4>
+                        <ul>
+                            <li><strong>Pending:</strong> Order placed, awaiting vendor processing</li>
+                            <li><strong>Processing:</strong> Vendor preparing the order for shipment</li>
+                            <li><strong>Shipped:</strong> Order dispatched with tracking information</li>
+                            <li><strong>Delivered:</strong> Order successfully delivered to customer</li>
+                            <li><strong>Cancelled:</strong> Order cancelled by customer or vendor</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="code-examples">
+                    <h2>Code Examples</h2>
+                    
+                    <div class="example-card">
+                        <h3>JavaScript - Create Order with Form Data</h3>
+                        <pre><code class="language-javascript">// Create order with payment screenshot
+const createOrder = async (shippingDetails, paymentMethod, paymentFile = null) => {
+  const token = localStorage.getItem('authToken');
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+  
+  const formData = new FormData();
+  formData.append('shippingDetails', JSON.stringify(shippingDetails));
+  formData.append('paymentMethod', paymentMethod);
+  
+  if (paymentFile) {
+    formData.append('paymentScreenshot', paymentFile);
+  }
+  
+  const response = await fetch(`${baseUrl}/orders`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+      // Don't set Content-Type for FormData - browser will set it with boundary
+    },
+    body: formData
+  });
+  
+  return response.json();
+};
+
+// Usage
+const shippingDetails = {
+  fullName: 'John Doe',
+  email: 'john@example.com',
+  phone: '+977-9841234567',
+  address: 'Thamel Street, House No. 123',
+  city: 'Kathmandu',
+  province: 'Bagmati',
+  postalCode: '44600'
+};
+
+// For pay-now orders with screenshot
+const paymentFile = document.getElementById('payment-file').files[0];
+const newOrder = await createOrder(shippingDetails, 'pay-now', paymentFile);
+
+// For pay-later orders
+const laterOrder = await createOrder(shippingDetails, 'pay-later');</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Fetch User Orders</h3>
+                        <pre><code class="language-javascript">// Get user's orders
+const getUserOrders = async () => {
+  const token = localStorage.getItem('authToken');
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+    
+  const response = await fetch(`${baseUrl}/orders`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  
+  return response.json();
+};
+
+// Get specific order details
+const getOrderDetails = async (orderId) => {
+  const token = localStorage.getItem('authToken');
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+    
+  const response = await fetch(`${baseUrl}/orders/${orderId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  
+  return response.json();
+};
+
+// Usage
+const orders = await getUserOrders();
+console.log('User orders:', orders.data.orders);
+
+const orderDetail = await getOrderDetails('64a1b2c3d4e5f6789012345');
+console.log('Order details:', orderDetail.data.order);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>React Hook - Orders Management</h3>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+const useOrders = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem('authToken');
+        const baseUrl = process.env.NODE_ENV === 'production' 
+          ? 'https://medicalbazzarnepal.com/api' 
+          : 'http://localhost:5000/api';
+          
+        const response = await fetch(`${baseUrl}/orders`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          setOrders(data.data.orders);
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const cancelOrder = async (orderId, reason) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://medicalbazzarnepal.com/api' 
+        : 'http://localhost:5000/api';
+        
+      const response = await fetch(`${baseUrl}/orders/${orderId}/cancel`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cancelReason: reason })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Update local state
+        setOrders(orders.map(order => 
+          order.id === orderId 
+            ? { ...order, orderStatus: 'cancelled', cancelReason: reason }
+            : order
+        ));
+        return data;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  return { orders, loading, error, cancelOrder };
+};
+
+// Usage in component
+const OrdersList = () => {
+  const { orders, loading, error, cancelOrder } = useOrders();
+
+  const handleCancelOrder = async (orderId) => {
+    const reason = prompt('Please provide a reason for cancellation:');
+    if (reason) {
+      try {
+        await cancelOrder(orderId, reason);
+        alert('Order cancelled successfully');
+      } catch (err) {
+        alert('Failed to cancel order: ' + err.message);
+      }
+    }
+  };
+
+  if (loading) return <div>Loading orders...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="orders-list">
+      {orders.map(order => (
+        <div key={order.id} className="order-card">
+          <h3>Order #{order.orderNumber}</h3>
+          <p>Status: {order.orderStatus}</p>
+          <p>Total: ${order.total}</p>
+          <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+          {order.orderStatus === 'pending' && (
+            <button 
+              onClick={() => handleCancelOrder(order.id)}
+              className="cancel-btn"
+            >
+              Cancel Order
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Complete cURL Examples</h3>
+                        
+                        <h4>Development Environment (HTTP)</h4>
+                        <pre><code class="language-bash"># Create order with payment screenshot
+curl -X POST "http://localhost:5000/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -F 'shippingDetails={"fullName":"John Doe","email":"john@example.com","phone":"+977-9841234567","address":"Thamel Street","city":"Kathmandu","province":"Bagmati"}' \
+  -F 'paymentMethod=pay-now' \
+  -F 'paymentScreenshot=@payment-proof.jpg'
+
+# Get user orders
+curl -X GET "http://localhost:5000/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"
+
+# Get specific order
+curl -X GET "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"
+
+# Cancel order
+curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/cancel" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"cancelReason": "Changed mind"}'
+
+# Admin: Get all orders with filters
+curl -X GET "http://localhost:5000/api/orders/admin/all?status=pending&page=1&limit=20" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Admin: Update order status
+curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderStatus": "shipped",
+    "trackingNumber": "TRK123456789",
+    "estimatedDeliveryDate": "2024-12-25"
+  }'
+
+# Admin: Update payment status
+curl -X PATCH "http://localhost:5000/api/orders/64a1b2c3d4e5f6789012345/payment" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"paymentStatus": "paid"}'
+
+# Vendor: Get vendor orders
+curl -X GET "http://localhost:5000/api/orders/vendor" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN"
+
+# Vendor: Update sub-order status
+curl -X PATCH "http://localhost:5000/api/orders/vendor/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_VENDOR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"orderStatus": "shipped", "trackingNumber": "VENDOR-TRK123"}'</code></pre>
+
+                        <h4>Production Environment (HTTPS)</h4>
+                        <pre><code class="language-bash"># Create order with payment screenshot
+curl -X POST "https://medicalbazzarnepal.com/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -F 'shippingDetails={"fullName":"John Doe","email":"john@example.com","phone":"+977-9841234567","address":"Thamel Street","city":"Kathmandu","province":"Bagmati"}' \
+  -F 'paymentMethod=pay-now' \
+  -F 'paymentScreenshot=@payment-proof.jpg'
+
+# Get user orders
+curl -X GET "https://medicalbazzarnepal.com/api/orders" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN"
+
+# Cancel order
+curl -X PATCH "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345/cancel" \
+  -H "Authorization: Bearer YOUR_USER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"cancelReason": "No longer needed"}'
+
+# Admin: Get all orders
+curl -X GET "https://medicalbazzarnepal.com/api/orders/admin/all" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Update order status
+curl -X PATCH "https://medicalbazzarnepal.com/api/orders/64a1b2c3d4e5f6789012345/status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"orderStatus": "delivered"}'</code></pre>
+
+                        <h4>Postman Collection Guide</h4>
+                        <div class="postman-guide">
+                            <h4>Environment Variables</h4>
+                            <ul>
+                                <li><code>baseUrl</code>: API base URL for your environment</li>
+                                <li><code>authToken</code>: User JWT token for customer endpoints</li>
+                                <li><code>adminToken</code>: Admin JWT token for admin endpoints</li>
+                                <li><code>vendorToken</code>: Vendor JWT token for vendor endpoints</li>
+                                <li><code>orderId</code>: Sample order ID for testing</li>
+                            </ul>
+                            
+                            <h4>Collection Structure</h4>
+                            <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal Orders API",
+    "description": "Complete Orders API endpoints"
+  },
+  "item": [
+    {
+      "name": "Customer Endpoints",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orders",
+            "header": [{"key": "Authorization", "value": "Bearer {{authToken}}"}],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "shippingDetails", "value": "{...}", "type": "text"},
+                {"key": "paymentMethod", "value": "pay-now", "type": "text"},
+                {"key": "paymentScreenshot", "type": "file"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Endpoints",
+      "item": [
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orders/admin/all",
+            "header": [{"key": "Authorization", "value": "Bearer {{adminToken}}"}]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendor Endpoints",
+      "item": [
+        {
+          "name": "Get Vendor Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orders/vendor",
+            "header": [{"key": "Authorization", "value": "Bearer {{vendorToken}}"}]
+          }
+        }
+      ]
+    }
+  ]
+}</code></pre>
+                            
+                            <h4>Auto-save Order ID Test</h4>
+                            <p>Add this to Tests tab of create order request:</p>
+                            <pre><code class="language-javascript">if (pm.response.code === 200 || pm.response.code === 201) {
+    const response = pm.response.json();
+    if (response.success && response.data.id) {
+        pm.environment.set("orderId", response.data.id);
+        pm.environment.set("orderNumber", response.data.orderNumber);
+        console.log("Order ID saved:", response.data.id);
+        console.log("Order Number saved:", response.data.orderNumber);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="email-notifications">
+                    <h2>📧 Email Notifications</h2>
+                    <p>When an order is placed, the system automatically sends email notifications to customers, admins, and vendors. These emails are triggered as part of the order creation process and include detailed order information.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔄 Automatic Email Flow</h3>
+                        <ul>
+                            <li><strong>Customer Email:</strong> Order confirmation with detailed receipt</li>
+                            <li><strong>Admin Emails:</strong> New order notification to all admin users</li>
+                            <li><strong>Vendor Emails:</strong> Product-specific notifications to each vendor</li>
+                            <li><strong>Error Handling:</strong> Email failures don't affect order creation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Test Vendor Email -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/orders/test-vendor-email</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Test vendor email notification functionality for a specific order</p>
+                        
+                        <h4>Request Body:</h4>
+                        <pre><code class="language-json">{
+  "orderId": "64a1b2c3d4e5f6789012345"
+}</code></pre>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/orders/test-vendor-email" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderId": "64a1b2c3d4e5f6789012345"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/orders/test-vendor-email" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderId": "64a1b2c3d4e5f6789012345"
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/orders/test-vendor-email</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{adminToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> Raw JSON with orderId</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "message": "Vendor email sent successfully",
+    "vendorCount": 2
+  },
+  "message": "Vendor email test completed"
+}</code></pre>
+
+                        <h4>Error Response:</h4>
+                        <pre><code class="language-json">{
+  "success": false,
+  "error": "No vendor products found in this order"
+}</code></pre>
+                    </div>
+
+                    <div class="email-details">
+                        <h3>📧 Email Types & Content</h3>
+                        
+                        <div class="example-card">
+                            <h4>1. Customer Order Confirmation</h4>
+                            <p><strong>Trigger:</strong> Automatic when order is created</p>
+                            <p><strong>Recipient:</strong> Customer email from shipping details</p>
+                            <p><strong>Content Includes:</strong></p>
+                            <ul>
+                                <li>Order number and date</li>
+                                <li>Complete order summary with product details</li>
+                                <li>Shipping address and payment information</li>
+                                <li>Order tracking link</li>
+                                <li>Customer support information</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-card">
+                            <h4>2. Admin Order Notification</h4>
+                            <p><strong>Trigger:</strong> Automatic when order is created</p>
+                            <p><strong>Recipients:</strong> All users with admin role</p>
+                            <p><strong>Content Includes:</strong></p>
+                            <ul>
+                                <li>New order alert with order number</li>
+                                <li>Customer information</li>
+                                <li>Order value and payment status</li>
+                                <li>Quick action links to admin dashboard</li>
+                                <li>Order management controls</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-card">
+                            <h4>3. Vendor Order Notification</h4>
+                            <p><strong>Trigger:</strong> Automatic when order contains vendor products</p>
+                            <p><strong>Recipients:</strong> Each vendor with products in the order</p>
+                            <p><strong>Content Includes:</strong></p>
+                            <ul>
+                                <li>Vendor-specific order details</li>
+                                <li>Only products belonging to that vendor</li>
+                                <li>Customer shipping information</li>
+                                <li>Action buttons (View Order, Mark as Shipped)</li>
+                                <li>Vendor dashboard links</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="email-workflow">
+                        <h3>🔄 Email Workflow Process</h3>
+                        
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Order Created</h4>
+                                    <p>Customer places order via POST /orders</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Admin Emails</h4>
+                                    <p>All admin users receive notification</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Customer Email</h4>
+                                    <p>Order confirmation sent to customer</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Vendor Emails</h4>
+                                    <p>Product-specific notifications to vendors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Test Vendor Email</h3>
+                        <pre><code class="language-javascript">const testVendorEmail = async (orderId) => {
+  const token = localStorage.getItem('adminToken');
+  
+  const response = await fetch('http://localhost:5000/api/orders/test-vendor-email', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ orderId })
+  });
+  
+  const data = await response.json();
+  
+  if (data.success) {
+    console.log(`Email sent to ${data.data.vendorCount} vendor(s)`);
+    return data;
+  } else {
+    throw new Error(data.error);
+  }
+};
+
+// Usage
+try {
+  const result = await testVendorEmail('64a1b2c3d4e5f6789012345');
+  console.log('Vendor email test completed:', result);
+} catch (error) {
+  console.error('Failed to send vendor email:', error.message);
+}</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>⚠️ Important Notes</h3>
+                        <ul>
+                            <li><strong>Error Resilience:</strong> Email failures don't prevent order creation</li>
+                            <li><strong>Admin Requirements:</strong> Test email endpoint requires admin authentication</li>
+                            <li><strong>Vendor Filtering:</strong> Only vendors with products in the order receive emails</li>
+                            <li><strong>Email Service:</strong> Uses Brevo (formerly Sendinblue) API for delivery</li>
+                            <li><strong>Retry Logic:</strong> Failed emails are logged but not automatically retried</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="cart.html" class="step-card">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h3>Cart API</h3>
+                            <p>Manage shopping cart before ordering</p>
+                        </a>
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>Browse products to add to orders</p>
+                        </a>
+                        <a href="vendors.html" class="step-card">
+                            <i class="fas fa-store"></i>
+                            <h3>Vendors API</h3>
+                            <p>Manage vendor information</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

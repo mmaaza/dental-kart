@@ -1,0 +1,300 @@
+# Dental Kart Nepal Design Language Guide
+
+This document outlines the design language and theme for the Dental Kart Nepal medical supplies e-commerce platform. Use this guide to maintain visual consistency across all pages and components.
+
+## Design Philosophy
+**Mobile-First Approach**: Always design for mobile screens first, then scale up to larger screens. Mobile experience should feel like a native app rather than a responsive website.
+
+## Color Palette
+The color scheme is defined in `tailwind.config.js` and consists of the following primary colors:
+
+### Primary Colors (Orange theme)
+- Primary-500: #f97316 (Main orange)
+- Use for primary buttons, links, and highlighted elements
+- Gradient variations: from-primary-700 to-primary-500 for hero sections and prominent areas
+
+### Secondary Colors (Red theme)
+- Secondary-500: #ef4444 (Main red)
+- Use for secondary CTAs, sale badges, urgency indicators, and flash deals
+- Often paired with Secondary-100 (#fee2e2) for backgrounds
+
+### Accent Colors (Yellow theme)
+- Accent-500: #eab308 (Main yellow)
+- Use for testimonial stars, special callouts, and featured elements
+- Accent-100 (#fef9c3) for subtle backgrounds
+
+### Neutral Colors
+- White (#ffffff) for card backgrounds, clean spaces
+- Gray-50 (#f9fafb) for section backgrounds
+- Gray-100 to Gray-900 for text with varying emphasis
+
+## Typography
+
+### Mobile Typography System
+- Headings:
+  - H1: text-2xl (24px) font-bold line-height-tight tracking-tight
+  - H2: text-xl (20px) font-bold line-height-tight 
+  - H3: text-lg (18px) font-medium line-height-snug
+  - H4: text-base (16px) font-medium line-height-snug
+- Body:
+  - Body-Large: text-base (16px) leading-relaxed
+  - Body-Default: text-sm (14px) leading-relaxed
+  - Body-Small: text-xs (12px) leading-normal
+- Button Text: text-sm (14px) font-medium
+- Navigation Labels: text-xs (12px) uppercase tracking-wide font-medium
+
+### Heading Typography
+- Font family: 'Poppins', sans-serif (defined in tailwind.config.js)
+- Large headings:
+  - text-2xl md:text-3xl lg:text-5xl font-bold (for hero sections)
+  - text-xl md:text-2xl lg:text-3xl font-bold (for section headers)
+- Medium headings:
+  - text-lg md:text-xl lg:text-2xl font-bold (for card headers, category titles)
+  - text-base md:text-lg font-medium (for product names)
+
+### Body Typography
+- Font family: 'Inter', sans-serif (defined in tailwind.config.js)
+- Primary body text: text-sm md:text-base text-gray-700
+- Secondary text: text-xs md:text-sm text-gray-500
+- Highlighted text: text-sm md:text-base text-primary-500 font-medium
+
+## Spacing System for Mobile
+
+### Key Spacing Values
+- Extra Small: space-x-2 space-y-2 (0.5rem, 8px) - For tight groupings of elements
+- Small: space-x-3 space-y-3 (0.75rem, 12px) - Default spacing between related elements
+- Medium: space-x-4 space-y-4 (1rem, 16px) - Spacing between distinct elements
+- Large: space-x-6 space-y-6 (1.5rem, 24px) - Section padding and significant separations
+- Extra Large: space-x-8 space-y-8 (2rem, 32px) - Major section separations
+
+### Mobile Padding Guidelines
+- Screen edge padding: px-4 (1rem, 16px)
+- Card internal padding: p-4 (1rem, 16px)
+- Section padding: py-8 (2rem, 32px) for vertical, px-4 (1rem, 16px) for horizontal
+- Button padding: py-3 px-4 for primary buttons, py-2 px-3 for secondary buttons
+
+### Touch Targets
+- Minimum touch target size: w-12 h-12 (3rem, 48px) for interactive elements
+- Minimum spacing between touch targets: space-x-2 space-y-2 (0.5rem, 8px)
+
+## Component Styling
+
+### Mobile App-Like Components
+
+#### Bottom Navigation Bar
+- Fixed position: fixed bottom-0 left-0 right-0
+- Height: h-16 (4rem, 64px)
+- Background: bg-white shadow-lg border-t border-gray-200
+- Items: flex justify-around items-center
+- Icons: w-6 h-6 text-gray-500 (inactive), text-primary-500 (active)
+- Labels: text-xs font-medium mt-1
+
+#### Mobile Cards
+- Rounded corners: rounded-lg
+- Shadow: shadow-sm
+- Border: border border-gray-100
+- Full bleed images: -mx-4 (remove horizontal padding)
+- Easily tappable: entire card should be clickable
+
+#### Mobile Buttons
+1. Primary Button (Full Width for Mobile)
+   - w-full bg-primary-500 hover:bg-primary-600 text-white py-3 px-4 rounded-md text-sm font-medium
+   - For main CTAs like "Shop Now"
+
+2. Icon Buttons
+   - w-10 h-10 flex items-center justify-center rounded-full bg-gray-100
+   - For navigation, favorites, etc.
+
+3. Floating Action Button
+   - Fixed position: fixed right-4 bottom-20
+   - Size: w-14 h-14 rounded-full
+   - Shadow: shadow-lg
+   - Background: bg-primary-500
+   - Icon: text-white text-xl
+
+### Buttons
+1. Primary Button
+   - bg-primary-500 hover:bg-primary-600 text-white py-3 px-6 rounded-md transition duration-300
+   - For main CTAs like "Shop Now"
+
+2. Secondary Button
+   - bg-transparent hover:bg-primary-600 border border-white font-medium py-3 px-6 rounded-md transition duration-300
+   - For secondary actions like "View Categories"
+
+3. Accent Button
+   - bg-accent-500 hover:bg-accent-600 text-white py-2 px-4 rounded-md text-sm font-medium transition duration-300
+   - For special actions like "Buy Now" on flash deals
+
+4. Small Button/Add to Cart
+   - bg-primary-500 hover:bg-primary-600 text-white py-1 px-3 rounded-md text-sm transition duration-300
+   - For product cards
+
+### Cards
+1. Product Card
+   - bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300
+   - Product image: w-full h-48 md:h-64 object-cover
+   - Discount badge: absolute top-2 right-2 bg-secondary-500 text-white text-xs font-bold px-2 py-1 rounded
+   - Product title: text-base md:text-lg font-medium text-gray-900
+   - Price: text-base md:text-lg font-bold text-gray-900 (with line-through for discounted price)
+
+2. Flash Deal Card
+   - bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-accent-200
+   - Time remaining badge: absolute top-2 right-2 bg-accent-500 text-white text-xs font-bold px-2 py-1 rounded-md
+
+3. Category Card
+   - relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300
+   - Overlay gradient: absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70
+   - Category title: text-white text-xl md:text-2xl font-bold
+
+4. Testimonial Card
+   - bg-gray-50 p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100
+
+### Features Icons
+- Icon containers: mr-4 bg-primary-100 p-3 rounded-full
+- Icons: w-6 h-6 text-primary-500
+
+### Mobile Section Styling
+1. Hero Section
+   - Min height for mobile: min-h-[400px]
+   - Centered text: text-center md:text-left
+   - Padding on mobile: py-12 px-4
+   - Button width on mobile: w-full mb-3 md:w-auto md:mb-0
+
+2. Standard Sections
+   - Consistent padding on mobile: py-8 px-4
+   - Section headers: text-xl font-bold mb-6
+   - Hidden elements on mobile: use hidden md:block
+
+3. Newsletter Section
+   - Stack form elements on mobile: flex-col space-y-3 md:flex-row md:space-y-0
+   - Full-width inputs and buttons: w-full
+
+## Mobile Gestures & Interactions
+- Implement swipe gestures for carousels: use touch-friendly libraries
+- Pull-to-refresh: for updating content
+- Tap feedback: active:bg-gray-100 or active:scale-95
+- Bottom sheets: for filters and additional options
+- Sticky headers: to maximize content space
+
+## Responsive Design
+- Mobile-first approach is MANDATORY
+- Key breakpoints:
+  - sm: Small screens (640px and up)
+  - md: Medium screens (768px and up) - primary tablet breakpoint
+  - lg: Large screens (1024px and up) - primary desktop breakpoint
+  - xl: Extra large screens (1280px and up)
+- Common responsive patterns:
+  - Grid: grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+  - Layout: flex-col md:flex-row
+  - Width: w-full md:w-1/2
+  - Text: text-base md:text-lg lg:text-xl
+- Mobile Grid Layout: grid grid-cols-2 gap-3 for product listings
+
+## Mobile Navigation
+- Use bottom navigation for main menu items
+- Implement a pull-out drawer for secondary navigation
+- Keep header minimal with logo and essential icons only
+- Use back buttons consistently on inner pages
+- Consider tab-style navigation for related content sections
+
+## Mobile Optimizations
+- Optimize images for mobile: Serve scaled images
+- Minimize pop-ups and modals
+- Use skeleton loaders instead of spinners
+- Implement infinite scroll instead of pagination where appropriate
+- Ensure forms are mobile-friendly with appropriate keyboard types
+- Use sticky add-to-cart buttons on product pages
+
+## Layout Containers
+- Mobile container: w-full px-4
+- Main container: container mx-auto px-4
+- Section dividers: curved SVG shapes or solid color transitions
+
+## Admin Panel Theme
+The admin panel uses a distinct dark mode color scheme based on blues, separate from the main client-side theme.
+
+### Admin Color Palette
+All colors are accessible through the 'admin-' prefix in Tailwind classes.
+
+1. Prussian Blue (Primary)
+- admin-prussian-100: #00090f (Darkest background)
+- admin-prussian-200: #00111e (Dark background)
+- admin-prussian-300: #011a2d (Container background)
+- admin-prussian-400: #01233c (Border color)
+- admin-prussian-500: #012a4a (Default)
+- admin-prussian-600: #025ca1 (Hover state)
+- admin-prussian-700: #048df6 (Active state)
+- admin-prussian-800: #54b4fc (Light text)
+- admin-prussian-900: #aad9fe (Lightest text)
+
+2. UCLA Blue (Secondary)
+- admin-ucla-100: #09161e
+- admin-ucla-200: #112d3c
+- admin-ucla-300: #1a435b
+- admin-ucla-400: #225979
+- admin-ucla-500: #2a6f97 (Main accent color)
+- admin-ucla-600: #3a93c7
+- admin-ucla-700: #6baed5
+- admin-ucla-800: #9cc9e3
+- admin-ucla-900: #cee4f1
+
+3. Light Blue (Text & Icons)
+- admin-light-100: #12333d
+- admin-light-200: #25657b
+- admin-light-300: #3798b8
+- admin-light-400: #6bb9d3
+- admin-light-500: #a9d6e5 (Primary text color)
+
+### Admin Dark Mode Usage
+The admin panel automatically enables dark mode. Key color combinations:
+
+1. Backgrounds
+- Main background: bg-admin-prussian-200 dark:bg-admin-prussian-100
+- Container background: bg-admin-prussian-300 dark:bg-admin-prussian-200
+- Accent backgrounds: bg-admin-ucla-500
+
+2. Text Colors
+- Primary text: text-admin-light-500
+- Secondary text: text-admin-light-300
+- Muted text: text-admin-light-200
+
+3. Borders
+- Default border: border-admin-prussian-400
+
+4. Interactive Elements
+- Buttons: bg-admin-ucla-500 hover:bg-admin-ucla-600
+- Links: text-admin-ucla-500 hover:text-admin-ucla-600
+- Active states: bg-admin-ucla-500 text-white
+
+### Admin Component Guidelines
+1. Cards and Containers
+```html
+<div class="bg-admin-prussian-300 dark:bg-admin-prussian-200 rounded-lg shadow-sm">
+```
+
+2. Navigation Items
+```html
+<a class="text-admin-light-300 hover:bg-admin-prussian-400 hover:text-white">
+```
+
+3. Tables
+```html
+<table class="divide-y divide-admin-prussian-400">
+  <thead class="bg-admin-prussian-400">
+  <tbody class="bg-admin-prussian-300 dark:bg-admin-prussian-200">
+```
+
+4. Form Elements
+```html
+<input class="bg-admin-prussian-300 border-admin-prussian-400 text-admin-light-500">
+```
+
+## Note on Implementation
+1. Always start by designing for mobile screens first
+2. Always use the colors defined in tailwind.config.js rather than hardcoding values
+3. Maintain consistent spacing using the theme's spacing scale and mobile spacing system
+4. Use existing component patterns for new elements to maintain design consistency
+5. For making custom additions to the theme, edit the tailwind.config.js file
+6. Consider mobile performance in all design decisions
+
+This guide should be updated as the design evolves to ensure all team members have access to the latest design standards.

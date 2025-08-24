@@ -1,0 +1,58 @@
+<VirtualHost *:443>
+    ServerName medicalbazzarnepal.com
+    ServerAlias www.medicalbazzarnepal.com
+
+    DocumentRoot /var/www/medical-bazzar/dist
+
+    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/medicalbazzarnepal.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/medicalbazzarnepal.com/privkey.pem
+
+    # API Proxy Configuration - FIXED to match your backend port and API structure
+    ProxyPass /api http://localhost:3001/api
+    ProxyPassReverse /api http://localhost:3001/api
+    
+    # Set proper headers for proxied requests
+    <Location /api>
+        ProxyPreserveHost On
+        RequestHeader set X-Forwarded-Proto "https"
+    </Location>
+    
+    # Uploads directory - make sure path is correct
+    Alias /uploads /var/www/medical-bazzar/public/uploads
+    <Directory /var/www/medical-bazzar/public/uploads>
+        Options -Indexes +FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+    
+    # React SPA directory configuration
+    <Directory /var/www/medical-bazzar/dist>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+        
+        # Fallback for SPA routing
+        RewriteEngine On
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^ index.html [QSA,L]
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName medicalbazzarnepal.com
+    ServerAlias www.medicalbazzarnepal.com
+    
+    # Redirect all HTTP traffic to HTTPS
+    RewriteEngine On
+    RewriteRule ^(.*)$ https://medicalbazzarnepal.com$1 [R=301,L]
+    
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start Guide - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html" class="active"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>🚀 Quick Start Guide</h1>
+                <p class="subtitle">Get up and running with the DK Nepal API in minutes</p>
+            </header>
+
+            <div class="content-body">
+                <section class="environment-setup">
+                    <h2>Environment Setup</h2>
+                    <p>The DK Nepal API supports both development and production environments with different base URLs.</p>
+                    
+                    <div class="info-box">
+                        <h3>🌐 Environment URLs</h3>
+                        <ul>
+                            <li><strong>Development:</strong> <code>http://localhost:5000/api</code></li>
+                            <li><strong>Production:</strong> <code>https://medicalbazzarnepal.com/api</code></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="getting-started-flow">
+                    <h2>Getting Started in 5 Steps</h2>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Choose Tool</h4>
+                                <p>cURL, Postman, or Code</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Set Environment</h4>
+                                <p>Dev or Production URL</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Test Public API</h4>
+                                <p>Get products without auth</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Login & Get Token</h4>
+                                <p>Authenticate for protected APIs</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Use Protected APIs</h4>
+                                <p>Create, update, delete operations</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="curl-quickstart">
+                    <h2>Option 1: cURL Quick Start</h2>
+                    
+                    <div class="example-card">
+                        <h3>Step 1: Test Public Endpoint</h3>
+                        
+                        <h4>Development</h4>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/products?limit=5"</code></pre>
+                        
+                        <h4>Production</h4>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/products?limit=5"</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Step 2: Register & Login</h3>
+                        
+                        <h4>Register (Development)</h4>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "password123"
+  }'</code></pre>
+
+                        <h4>Login (Development)</h4>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "password": "password123"
+  }'</code></pre>
+
+                        <h4>Response (Save the token!)</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "user_id",
+    "name": "Test User",
+    "email": "test@example.com",
+    "role": "user"
+  }
+}</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Step 3: Use Protected Endpoint</h3>
+                        
+                        <h4>Get Current User Profile</h4>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/auth/me" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Content-Type: application/json"</code></pre>
+                    </div>
+                </section>
+
+                <section class="postman-quickstart">
+                    <h2>Option 2: Postman Quick Start</h2>
+                    
+                    <div class="postman-guide">
+                        <h4>Step 1: Create Environment</h4>
+                        <ol>
+                            <li>Open Postman and create a new Environment</li>
+                            <li>Add these variables:</li>
+                        </ol>
+                        <table style="width: 100%; font-size: 0.8rem; margin: 1rem 0;">
+                            <tr><th>Variable</th><th>Initial Value</th><th>Current Value</th></tr>
+                            <tr><td>baseUrl</td><td>http://localhost:5000/api</td><td>http://localhost:5000/api</td></tr>
+                            <tr><td>authToken</td><td></td><td></td></tr>
+                        </table>
+                        
+                        <h4>Step 2: Import Collection</h4>
+                        <p>Create a new collection and add this structure:</p>
+                        <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal API Quick Start",
+    "description": "Quick start collection for testing"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Get Products (Public)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products?limit=5"
+      }
+    },
+    {
+      "name": "2. Login",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/auth/login",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    if (response.success && response.token) {",
+              "        pm.environment.set('authToken', response.token);",
+              "        console.log('Token saved:', response.token);",
+              "    }",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Get Profile (Protected)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/auth/me",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {"key": "token", "value": "{{authToken}}"}
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre>
+
+                        <h4>Step 3: Test the Collection</h4>
+                        <ol>
+                            <li>Run "Get Products" - should work without authentication</li>
+                            <li>Run "Login" - should save token automatically</li>
+                            <li>Run "Get Profile" - should use saved token</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="javascript-quickstart">
+                    <h2>Option 3: JavaScript Quick Start</h2>
+                    
+                    <div class="example-card">
+                        <h3>Setup API Client</h3>
+                        <pre><code class="language-javascript">// api-client.js
+class MBNepalAPI {
+  constructor(environment = 'development') {
+    this.baseUrl = environment === 'production' 
+      ? 'https://medicalbazzarnepal.com/api'
+      : 'http://localhost:5000/api';
+    this.token = localStorage.getItem('mbnepal_token');
+  }
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseUrl}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers
+    };
+
+    if (this.token) {
+      headers.Authorization = `Bearer ${this.token}`;
+    }
+
+    const response = await fetch(url, {
+      ...options,
+      headers
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'API request failed');
+    }
+
+    return data;
+  }
+
+  async login(email, password) {
+    const response = await this.request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    });
+
+    if (response.success && response.token) {
+      this.token = response.token;
+      localStorage.setItem('mbnepal_token', this.token);
+    }
+
+    return response;
+  }
+
+  async getProducts(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/products${query ? '?' + query : ''}`);
+  }
+
+  async getProfile() {
+    return this.request('/auth/me');
+  }
+}
+
+// Usage
+const api = new MBNepalAPI('development'); // or 'production'</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Quick Test Script</h3>
+                        <pre><code class="language-javascript">// quick-test.js
+async function quickTest() {
+  try {
+    // Test public endpoint
+    console.log('Testing public endpoint...');
+    const products = await api.getProducts({ limit: 5 });
+    console.log('Products:', products.data.products);
+
+    // Login
+    console.log('Logging in...');
+    const loginResult = await api.login('test@example.com', 'password123');
+    console.log('Login successful:', loginResult.success);
+
+    // Test protected endpoint
+    console.log('Testing protected endpoint...');
+    const profile = await api.getProfile();
+    console.log('User profile:', profile.data);
+
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+}
+
+// Run the test
+quickTest();</code></pre>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="authentication.html" class="step-card">
+                            <i class="fas fa-key"></i>
+                            <h3>Authentication Details</h3>
+                            <p>Learn about JWT tokens and security</p>
+                        </a>
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>Manage products and inventory</p>
+                        </a>
+                        <a href="examples.html" class="step-card">
+                            <i class="fas fa-code"></i>
+                            <h3>More Examples</h3>
+                            <p>Complete code examples and patterns</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

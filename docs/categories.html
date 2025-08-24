@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories API - DK Nepal API v2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>DK Nepal API</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Overview</a></li>
+                        <li><a href="authentication.html"><i class="fas fa-key"></i> Authentication</a></li>
+                        <li><a href="quickstart.html"><i class="fas fa-rocket"></i> Quick Start</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Core APIs</h3>
+                    <ul>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                        <li><a href="categories.html" class="active"><i class="fas fa-tags"></i> Categories</a></li>
+                        <li><a href="brands.html"><i class="fas fa-copyright"></i> Brands</a></li>
+                        <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>User Management</h3>
+                    <ul>
+                        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="vendors.html"><i class="fas fa-store"></i> Vendors</a></li>
+                        <li><a href="auth.html"><i class="fas fa-user-shield"></i> Auth</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Advanced Features</h3>
+                    <ul>
+                        <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a href="media.html"><i class="fas fa-images"></i> Media</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Development</h3>
+                    <ul>
+                        <li><a href="examples.html"><i class="fas fa-code"></i> Code Examples</a></li>
+                        <li><a href="errors.html"><i class="fas fa-exclamation-triangle"></i> Error Codes</a></li>
+                        <li><a href="models.html"><i class="fas fa-database"></i> Data Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>🏷️ Categories API</h1>
+                <p class="subtitle">Manage product categories with hierarchical structure and organization</p>
+            </header>
+
+            <div class="content-body">
+                <section class="categories-overview">
+                    <h2>Overview</h2>
+                    <p>The Categories API provides comprehensive category management with support for hierarchical structures, featuring parent-child relationships, tree organization, and advanced deletion handling with product reassignment.</p>
+                    
+                    <div class="info-box">
+                        <h3>🔑 Key Features</h3>
+                        <ul>
+                            <li><strong>Hierarchical Structure:</strong> Support for parent-child category relationships</li>
+                            <li><strong>Tree & Flat Views:</strong> Get categories in tree structure or flat array format</li>
+                            <li><strong>Smart Deletion:</strong> Automatic product reassignment to "Uncategorized" when deleting categories</li>
+                            <li><strong>Featured Categories:</strong> Mark categories as featured for homepage display</li>
+                            <li><strong>SEO Optimization:</strong> Meta titles, descriptions, and custom slugs</li>
+                            <li><strong>Status Management:</strong> Active/inactive status with automatic featured management</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="public-endpoints">
+                    <h2>🌐 Public API Endpoints</h2>
+                    <p>These endpoints are publicly accessible and don't require authentication. Perfect for frontend applications displaying categories to customers.</p>
+                    
+                    <!-- Get Categories -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/categories</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Retrieve all active categories with hierarchical structure</p>
+                        
+                        <h4>Query Parameters:</h4>
+                        <div class="params-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>format</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Response format: "tree" (default) or "flat"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>status</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Filter by status (admin only)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/categories"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/categories"</code></pre>
+                        
+                        <h5>Get Flat Format</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/categories?format=flat"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories</code></li>
+                                <li><strong>Query Params:</strong> Add optional parameters as needed</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                            
+                            <h4>Query Parameters in Postman</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+                                <tr><td>format</td><td>tree</td><td>Hierarchical tree structure</td></tr>
+                                <tr><td>format</td><td>flat</td><td>Flat array format</td></tr>
+                            </table>
+                        </div>
+
+                        <h4>Response (Tree Format):</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": [
+    {
+      "id": "64a1b2c3d4e5f6789012345",
+      "name": "Medical Equipment",
+      "slug": "medical-equipment",
+      "description": "Professional medical equipment and devices",
+      "image": "/uploads/categories/medical-equipment.jpg",
+      "level": 0,
+      "parentId": null,
+      "featured": true,
+      "children": [
+        {
+          "id": "64a1b2c3d4e5f6789012346",
+          "name": "Dental Equipment",
+          "slug": "dental-equipment",
+          "description": "Dental tools and equipment",
+          "image": "/uploads/categories/dental.jpg",
+          "level": 1,
+          "parentId": "64a1b2c3d4e5f6789012345",
+          "featured": false,
+          "children": []
+        }
+      ]
+    }
+  ]
+}</code></pre>
+                    </div>
+
+                    <!-- Get Category by Slug -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/categories/slug/:slug</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single category by its slug</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/categories/slug/medical-equipment"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/categories/slug/medical-equipment"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/slug/medical-equipment</code></li>
+                                <li><strong>Path Variable:</strong> Replace <code>medical-equipment</code> with actual category slug</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012345",
+    "name": "Medical Equipment",
+    "slug": "medical-equipment",
+    "description": "Professional medical equipment and devices",
+    "image": "/uploads/categories/medical-equipment.jpg",
+    "level": 0,
+    "parentId": null,
+    "featured": true,
+    "children": [
+      {
+        "id": "64a1b2c3d4e5f6789012346",
+        "name": "Dental Equipment",
+        "slug": "dental-equipment",
+        "featured": false
+      }
+    ]
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Get Category by ID -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/categories/:id</code>
+                            <span class="public">Public</span>
+                        </div>
+                        <p>Get a single category by its ID</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012345"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012345"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/{{categoryId}}</code></li>
+                                <li><strong>Path Variable:</strong> <code>categoryId</code> - The category's unique ID</li>
+                                <li><strong>No authentication required</strong> (public endpoint)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-endpoints">
+                    <h2>🔒 Admin API Endpoints</h2>
+                    <p>These endpoints require admin authentication and permissions. Used for category management, creation, updates, and administrative tasks.</p>
+                    
+                    <!-- Create Category -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <code>/categories</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Create a new category (admin only)</p>
+
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X POST "http://localhost:5000/api/categories" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Surgical Instruments",
+    "description": "Professional surgical tools and instruments",
+    "parentId": "64a1b2c3d4e5f6789012345",
+    "image": "/uploads/categories/surgical.jpg",
+    "featured": false,
+    "metaTitle": "Surgical Instruments - Medical Equipment",
+    "metaDescription": "High-quality surgical instruments for medical professionals"
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X POST "https://medicalbazzarnepal.com/api/categories" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Surgical Instruments",
+    "description": "Professional surgical tools and instruments",
+    "parentId": "64a1b2c3d4e5f6789012345",
+    "image": "/uploads/categories/surgical.jpg",
+    "featured": false
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <h4>Request Configuration</h4>
+                            <ul>
+                                <li><strong>Method:</strong> POST</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> Select "raw" and "JSON" format</li>
+                            </ul>
+                            
+                            <h4>Body Parameters</h4>
+                            <table style="width: 100%; font-size: 0.8rem;">
+                                <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                <tr><td>name</td><td>string</td><td>Yes</td><td>Category name</td></tr>
+                                <tr><td>description</td><td>string</td><td>No</td><td>Category description</td></tr>
+                                <tr><td>parentId</td><td>string</td><td>No</td><td>Parent category ID</td></tr>
+                                <tr><td>image</td><td>string</td><td>No</td><td>Category image URL</td></tr>
+                                <tr><td>featured</td><td>boolean</td><td>No</td><td>Featured status</td></tr>
+                                <tr><td>slug</td><td>string</td><td>No</td><td>Custom slug (auto-generated if not provided)</td></tr>
+                                <tr><td>metaTitle</td><td>string</td><td>No</td><td>SEO meta title</td></tr>
+                                <tr><td>metaDescription</td><td>string</td><td>No</td><td>SEO meta description</td></tr>
+                            </table>
+                        </div>
+                        
+                        <h4>Request Body (JSON):</h4>
+                        <pre><code class="language-json">{
+  "name": "Surgical Instruments",
+  "description": "Professional surgical tools and instruments",
+  "parentId": "64a1b2c3d4e5f6789012345",
+  "image": "/uploads/categories/surgical.jpg",
+  "status": "active",
+  "featured": false,
+  "tags": ["surgery", "medical", "instruments"],
+  "keywords": ["surgical", "tools", "medical", "instruments"],
+  "metaTitle": "Surgical Instruments - Medical Equipment",
+  "metaDescription": "High-quality surgical instruments for medical professionals"
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "name": "Surgical Instruments",
+    "slug": "surgical-instruments",
+    "description": "Professional surgical tools and instruments",
+    "parentId": "64a1b2c3d4e5f6789012345",
+    "image": "/uploads/categories/surgical.jpg",
+    "status": "active",
+    "featured": false,
+    "level": 1,
+    "ancestors": ["64a1b2c3d4e5f6789012345"],
+    "createdAt": "2024-12-20T11:00:00.000Z",
+    "updatedAt": "2024-12-20T11:00:00.000Z"
+  },
+  "message": "Category created successfully"
+}</code></pre>
+                    </div>
+
+                    <!-- Update Category -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method put">PUT</span>
+                            <code>/categories/:id</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Update an existing category</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PUT "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Advanced Surgical Instruments",
+    "description": "Premium surgical tools for advanced procedures",
+    "featured": true
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PUT "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Advanced Surgical Instruments",
+    "featured": true
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PUT</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/{{categoryId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Headers:</strong> <code>Content-Type: application/json</code></li>
+                                <li><strong>Body:</strong> JSON with fields to update</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Toggle Category Status -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method patch">PATCH</span>
+                            <code>/categories/:id/toggle-status</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Toggle category between active and inactive status</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X PATCH "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> PATCH</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/{{categoryId}}/toggle-status</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>No body required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "id": "64a1b2c3d4e5f6789012347",
+    "status": "inactive",
+    "featured": false,
+    "updatedAt": "2024-12-20T12:00:00.000Z"
+  },
+  "message": "Category status updated to inactive"
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Note:</strong> When a category is set to inactive, it's automatically unfeatured.</p>
+                        </div>
+                    </div>
+
+                    <!-- Get Category Deletion Preview -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <code>/categories/admin/:id/deletion-preview</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Preview the impact of deleting a category (subcategories and affected products)</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/api/categories/admin/64a1b2c3d4e5f6789012345/deletion-preview" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X GET "https://medicalbazzarnepal.com/api/categories/admin/64a1b2c3d4e5f6789012345/deletion-preview" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/admin/{{categoryId}}/deletion-preview</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Admin access required</strong></li>
+                            </ul>
+                        </div>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "category": {
+      "id": "64a1b2c3d4e5f6789012345",
+      "name": "Medical Equipment",
+      "level": 0
+    },
+    "subcategories": [
+      {
+        "id": "64a1b2c3d4e5f6789012346",
+        "name": "Dental Equipment",
+        "level": 1
+      },
+      {
+        "id": "64a1b2c3d4e5f6789012347",
+        "name": "Surgical Instruments",
+        "level": 1
+      }
+    ],
+    "totalCategoriesToDelete": 3,
+    "totalProductsAffected": 25,
+    "sampleProducts": [
+      {
+        "id": "64a1b2c3d4e5f6789012348",
+        "name": "Dental Handpiece",
+        "slug": "dental-handpiece"
+      }
+    ]
+  },
+  "message": "Category deletion preview"
+}</code></pre>
+                    </div>
+
+                    <!-- Delete Category -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method delete">DELETE</span>
+                            <code>/categories/:id</code>
+                            <span class="admin">Admin Only</span>
+                        </div>
+                        <p>Delete a category and optionally move affected products to "Uncategorized"</p>
+                        
+                        <h4>cURL Examples:</h4>
+                        
+                        <h5>Development (HTTP)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "moveToUncategorized": true
+  }'</code></pre>
+                        
+                        <h5>Production (HTTPS)</h5>
+                        <pre><code class="language-bash">curl -X DELETE "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "moveToUncategorized": true
+  }'</code></pre>
+
+                        <h4>Postman Setup:</h4>
+                        <div class="postman-guide">
+                            <ul>
+                                <li><strong>Method:</strong> DELETE</li>
+                                <li><strong>URL:</strong> <code>{{baseUrl}}/categories/{{categoryId}}</code></li>
+                                <li><strong>Authorization:</strong> Bearer Token → <code>{{authToken}}</code></li>
+                                <li><strong>Body (JSON):</strong> <code>{"moveToUncategorized": true}</code></li>
+                            </ul>
+                        </div>
+
+                        <h4>Request Body (Optional):</h4>
+                        <pre><code class="language-json">{
+  "moveToUncategorized": true
+}</code></pre>
+
+                        <h4>Response:</h4>
+                        <pre><code class="language-json">{
+  "success": true,
+  "data": {
+    "deletedCategories": 3,
+    "movedProducts": 15,
+    "moveToUncategorized": true
+  },
+  "message": "Category deleted successfully. 15 products moved to Uncategorized."
+}</code></pre>
+                        
+                        <div class="endpoint-notes">
+                            <p><strong>Note:</strong> When deleting a category with subcategories, all subcategories are also deleted. Products can be automatically moved to "Uncategorized" category.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="category-structure">
+                    <h2>Category Structure & Hierarchy</h2>
+                    <p>Categories support hierarchical organization with parent-child relationships, making it easy to organize products in a structured way.</p>
+
+                    <div class="attribute-example">
+                        <h3>Category Tree Structure Example</h3>
+                        <pre><code class="language-json">{
+  "data": [
+    {
+      "id": "64a1b2c3d4e5f6789012345",
+      "name": "Medical Equipment",
+      "slug": "medical-equipment",
+      "level": 0,
+      "parentId": null,
+      "featured": true,
+      "children": [
+        {
+          "id": "64a1b2c3d4e5f6789012346",
+          "name": "Dental Equipment",
+          "slug": "dental-equipment",
+          "level": 1,
+          "parentId": "64a1b2c3d4e5f6789012345",
+          "children": [
+            {
+              "id": "64a1b2c3d4e5f6789012347",
+              "name": "Handpieces",
+              "slug": "handpieces",
+              "level": 2,
+              "parentId": "64a1b2c3d4e5f6789012346",
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "64a1b2c3d4e5f6789012348",
+          "name": "Surgical Instruments",
+          "slug": "surgical-instruments",
+          "level": 1,
+          "parentId": "64a1b2c3d4e5f6789012345",
+          "children": []
+        }
+      ]
+    }
+  ]
+}</code></pre>
+
+                        <h4>Hierarchy Features:</h4>
+                        <ul>
+                            <li><strong>Level:</strong> Automatically calculated depth in the tree (0 = root)</li>
+                            <li><strong>Parent-Child:</strong> Each category can have one parent and multiple children</li>
+                            <li><strong>Ancestors:</strong> Array of all parent IDs up to root level</li>
+                            <li><strong>Flexible Views:</strong> Get data as tree structure or flat array</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="code-examples">
+                    <h2>Code Examples</h2>
+                    
+                    <div class="example-card">
+                        <h3>JavaScript - Fetch Categories</h3>
+                        <pre><code class="language-javascript">// Get categories in tree format
+const getCategoriesTree = async () => {
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+    
+  const response = await fetch(`${baseUrl}/categories`);
+  return response.json();
+};
+
+// Get categories in flat format
+const getCategoriesFlat = async () => {
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+    
+  const response = await fetch(`${baseUrl}/categories?format=flat`);
+  return response.json();
+};
+
+// Usage
+const treeData = await getCategoriesTree();
+const flatData = await getCategoriesFlat();
+
+console.log('Tree format:', treeData.data);
+console.log('Flat format:', flatData.data);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JavaScript - Create Category</h3>
+                        <pre><code class="language-javascript">const createCategory = async (categoryData) => {
+  const token = localStorage.getItem('authToken');
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://medicalbazzarnepal.com/api' 
+    : 'http://localhost:5000/api';
+  
+  const response = await fetch(`${baseUrl}/categories`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(categoryData)
+  });
+  
+  return response.json();
+};
+
+// Usage
+const newCategory = await createCategory({
+  name: 'Laboratory Equipment',
+  description: 'Medical laboratory tools and devices',
+  parentId: '64a1b2c3d4e5f6789012345',
+  featured: false,
+  metaTitle: 'Laboratory Equipment - Medical Supplies',
+  metaDescription: 'Professional laboratory equipment for medical testing'
+});</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>React Hook - Categories</h3>
+                        <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+const useCategories = (format = 'tree') => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const baseUrl = process.env.NODE_ENV === 'production' 
+          ? 'https://medicalbazzarnepal.com/api' 
+          : 'http://localhost:5000/api';
+          
+        const response = await fetch(`${baseUrl}/categories?format=${format}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setCategories(data.data);
+        } else {
+          setError(data.error);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, [format]);
+
+  return { categories, loading, error };
+};
+
+// Usage in component
+const CategoryList = () => {
+  const { categories, loading, error } = useCategories('tree');
+
+  if (loading) return <div>Loading categories...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  const renderCategory = (category) => (
+    <div key={category.id} className="category-item">
+      <h3>{category.name}</h3>
+      <p>{category.description}</p>
+      {category.children && category.children.length > 0 && (
+        <div className="subcategories">
+          {category.children.map(renderCategory)}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="categories-list">
+      {categories.map(renderCategory)}
+    </div>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>Complete cURL Examples</h3>
+                        
+                        <h4>Development Environment (HTTP)</h4>
+                        <pre><code class="language-bash"># Get all categories (tree format)
+curl -X GET "http://localhost:5000/api/categories"
+
+# Get categories in flat format
+curl -X GET "http://localhost:5000/api/categories?format=flat"
+
+# Get category by slug
+curl -X GET "http://localhost:5000/api/categories/slug/medical-equipment"
+
+# Get category by ID
+curl -X GET "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012345"
+
+# Create category (admin only)
+curl -X POST "http://localhost:5000/api/categories" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Laboratory Equipment",
+    "description": "Medical laboratory tools and devices",
+    "parentId": "64a1b2c3d4e5f6789012345",
+    "featured": false
+  }'
+
+# Update category
+curl -X PUT "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Advanced Laboratory Equipment",
+    "featured": true
+  }'
+
+# Toggle category status
+curl -X PATCH "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347/toggle-status" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Get deletion preview
+curl -X GET "http://localhost:5000/api/categories/admin/64a1b2c3d4e5f6789012345/deletion-preview" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# Delete category
+curl -X DELETE "http://localhost:5000/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"moveToUncategorized": true}'</code></pre>
+
+                        <h4>Production Environment (HTTPS)</h4>
+                        <pre><code class="language-bash"># Get all categories (tree format)
+curl -X GET "https://medicalbazzarnepal.com/api/categories"
+
+# Get categories in flat format
+curl -X GET "https://medicalbazzarnepal.com/api/categories?format=flat"
+
+# Get category by slug
+curl -X GET "https://medicalbazzarnepal.com/api/categories/slug/medical-equipment"
+
+# Create category (admin only)
+curl -X POST "https://medicalbazzarnepal.com/api/categories" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Laboratory Equipment",
+    "description": "Medical laboratory tools and devices",
+    "featured": false
+  }'
+
+# Update category
+curl -X PUT "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "featured": true
+  }'
+
+# Delete category
+curl -X DELETE "https://medicalbazzarnepal.com/api/categories/64a1b2c3d4e5f6789012347" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"moveToUncategorized": true}'</code></pre>
+
+                        <h4>Postman Collection Guide</h4>
+                        <div class="postman-guide">
+                            <h4>Environment Variables</h4>
+                            <ul>
+                                <li><code>baseUrl</code>: API base URL for your environment</li>
+                                <li><code>authToken</code>: Admin JWT token for protected endpoints</li>
+                                <li><code>categoryId</code>: Sample category ID for testing</li>
+                                <li><code>parentCategoryId</code>: Parent category ID for hierarchy testing</li>
+                            </ul>
+                            
+                            <h4>Collection Structure</h4>
+                            <pre><code class="language-json">{
+  "info": {
+    "name": "DK Nepal Categories API",
+    "description": "Complete Categories API endpoints"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{"key": "token", "value": "{{authToken}}"}]
+  },
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Get Categories Tree",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categories"
+          }
+        },
+        {
+          "name": "Get Categories Flat",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categories?format=flat"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Endpoints",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/categories"
+          }
+        }
+      ]
+    }
+  ]
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="steps-grid">
+                        <a href="brands.html" class="step-card">
+                            <i class="fas fa-copyright"></i>
+                            <h3>Brands API</h3>
+                            <p>Learn about product brand management</p>
+                        </a>
+                        <a href="products.html" class="step-card">
+                            <i class="fas fa-box"></i>
+                            <h3>Products API</h3>
+                            <p>See how products use categories</p>
+                        </a>
+                        <a href="search.html" class="step-card">
+                            <i class="fas fa-search"></i>
+                            <h3>Search API</h3>
+                            <p>Search products by category</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

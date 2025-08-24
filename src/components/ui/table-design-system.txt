@@ -1,0 +1,106 @@
+# Table Design System
+
+## Base Table Structure
+```jsx
+<div className="bg-white shadow-mobile rounded-lg">
+  <!-- Table Header Section -->
+  <div className="px-6 py-4 border-b border-gray-200">
+    <div className="flex items-center justify-between">
+      <h2 className="text-lg font-medium text-gray-900">Table Title</h2>
+      <a href="#" className="text-sm font-medium text-primary-500 hover:text-primary-600">
+        Action Link
+      </a>
+    </div>
+  </div>
+
+  <!-- Table Container -->
+  <div className="overflow-x-auto">
+    <table className="min-w-full divide-y divide-gray-200">
+      <!-- Table Head -->
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Column Header
+          </th>
+        </tr>
+      </thead>
+      <!-- Table Body -->
+      <tbody className="bg-white divide-y divide-gray-200">
+        <tr>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <!-- Cell Content -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+```
+
+## Common Cell Types
+
+### Text Cell
+```jsx
+<td className="px-6 py-4 whitespace-nowrap">
+  <span className="text-sm font-medium text-gray-900">Text content</span>
+</td>
+```
+
+### User Profile Cell
+```jsx
+<td className="px-6 py-4 whitespace-nowrap">
+  <div className="flex items-center">
+    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+      <span className="text-xs font-medium">{initial}</span>
+    </div>
+    <div className="ml-3">
+      <p className="text-sm font-medium text-gray-900">{name}</p>
+      <p className="text-xs text-gray-500">{secondary}</p>
+    </div>
+  </div>
+</td>
+```
+
+### Status Badge Cell
+```jsx
+<td className="px-6 py-4 whitespace-nowrap">
+  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[color]-100 text-[color]-800">
+    Status Text
+  </span>
+</td>
+```
+
+## Status Colors
+- Success/Completed: bg-green-100 text-green-800
+- Processing/Info: bg-blue-100 text-blue-800
+- Warning/Pending: bg-yellow-100 text-yellow-800
+
+## Responsive Considerations
+1. Use overflow-x-auto on table container for horizontal scrolling on mobile
+2. Add whitespace-nowrap to cells to prevent content wrapping
+3. Use min-w-full to ensure table takes full width of container
+
+## Accessibility Features
+1. Use semantic table elements (table, thead, tbody, tr, th, td)
+2. Left-align text headers for better readability
+3. Use proper color contrast for text and backgrounds
+4. Include proper aria-labels where needed
+
+## Best Practices
+1. Keep table rows at a reasonable height (py-4 padding)
+2. Use consistent spacing (px-6 horizontal padding)
+3. Use dividers between rows (divide-y)
+4. Include hover states if rows are clickable
+5. Consider adding zebra striping for better readability on larger tables
+
+## Example Status Implementation
+```jsx
+const getStatusStyles = (status) => {
+  const styles = {
+    'Completed': 'bg-green-100 text-green-800',
+    'Processing': 'bg-blue-100 text-blue-800',
+    'Pending': 'bg-yellow-100 text-yellow-800'
+  };
+  return styles[status] || 'bg-gray-100 text-gray-800';
+};
+```
