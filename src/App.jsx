@@ -70,7 +70,6 @@ import ContactSettingsPage from './pages/admin/settings/ContactSettingsPage';
 import EmailSettingsPage from './pages/admin/settings/EmailSettingsPage';
 import AttributesSettingsPage from './pages/admin/AttributesSettingsPage';
 import ReviewsPage from './pages/admin/ReviewsPage'; // Import ReviewsPage component
-import AdminChatPage from './pages/admin/AdminChatPage'; // Import AdminChatPage component
 
 // Import vendor pages
 import VendorLoginPage from './pages/vendor/LoginPage';
@@ -244,7 +243,6 @@ function App() {
                           <Route path="media" element={<MediaPage />} />
                           <Route path="users" element={<UsersPage />} />
                           <Route path="notifications" element={<NotificationsPage />} />
-                          <Route path="chat" element={<AdminChatPage />} />
                           <Route path="settings" element={<AdminSettings />}>
                             <Route index element={<Navigate to="homepage" replace />} />
                             <Route path="homepage" element={<HomepageSettingsPage />} />
