@@ -25,6 +25,9 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+// Serve static files
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+
 // Mount routers
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/users', require('./routes/users.routes'));
