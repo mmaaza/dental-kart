@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // Ensure upload directory exists and has correct permissions
 const ensureUploadDirectory = () => {
-  const uploadDir = path.join('/var/www/medical-bazzar/public/uploads/payments');
+  const uploadDir = path.join('/var/www/dentalcartnepal/public/uploads/payments');
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true, mode: 0o755 });
   } else {

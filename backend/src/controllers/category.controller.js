@@ -399,7 +399,7 @@ exports.toggleStatus = catchAsync(async (req, res) => {
 // @desc    Get all categories (public/client version)
 // @route   GET /api/categories
 // @access  Public
-exports.getCategoriesPublic = async (req, res) => {
+exports.getCategoriesPublic = async (req, res, next) => {
   try {
     const { status, format = 'tree' } = req.query;
     

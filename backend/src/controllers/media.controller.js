@@ -14,7 +14,7 @@ const RESIZE_PRESETS = {
 // Ensure upload directory exists and has correct permissions
 const ensureUploadDirectory = () => {
   // const uploadDir = path.join(process.cwd(), '../public/uploads');
-  const uploadDir = path.join('/var/www/medical-bazzar/public/uploads');
+  const uploadDir = path.join(__dirname, '../../public/uploads');
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true, mode: 0o755 });
   } else {
@@ -193,7 +193,7 @@ const deleteMedia = async (req, res) => {
     }
 
     // Delete file from storage using absolute path
-    const filePath = path.join(process.cwd(), '../public', media.url);
+    const filePath = path.join(__dirname, '../../public', media.url);
     console.log('Deleting file:', filePath); // Debug log
     
     if (fs.existsSync(filePath)) {

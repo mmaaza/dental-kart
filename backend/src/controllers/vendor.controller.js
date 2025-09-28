@@ -122,11 +122,11 @@ exports.createVendor = async (req, res) => {
     try {
       await sendEmail({
         to: vendor.email,
-        subject: 'Welcome to Dental Kart Nepal - Vendor Account Created',
+        subject: 'Welcome to Dental Cart Nepal - Vendor Account Created',
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; background-color: #f9fafb;">
             <div style="text-align: center; margin-bottom: 30px;">
-              <h1 style="color: #f97316; font-size: 28px; margin: 0;">Dental Kart Nepal</h1>
+              <h1 style="color: #f97316; font-size: 28px; margin: 0;">Dental Cart Nepal</h1>
               <p style="color: #6b7280; margin: 5px 0 0 0;">Your Trusted Medical Equipment Partner</p>
             </div>
             
@@ -134,7 +134,7 @@ exports.createVendor = async (req, res) => {
               <h2 style="color: #111827; margin-bottom: 20px; font-size: 24px;">Welcome to Our Vendor Network!</h2>
               
               <p style="color: #374151; line-height: 1.6; margin-bottom: 20px;">
-                Congratulations! Your vendor account has been successfully created. You are now part of the Dental Kart Nepal vendor network.
+                Congratulations! Your vendor account has been successfully created. You are now part of the Dental Cart Nepal vendor network.
               </p>
               
               <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 25px 0;">
@@ -161,7 +161,7 @@ exports.createVendor = async (req, res) => {
             </div>
             
             <div style="text-align: center; margin-top: 30px; color: #9ca3af; font-size: 12px;">
-              <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+              <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
             </div>
           </div>
         `

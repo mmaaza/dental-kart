@@ -22,7 +22,7 @@ const getClientUrl = () => {
       return process.env.PRODUCTION_URL;
     }
     // Default production URL
-    return 'https://medicalbazarnepal.com';
+    return 'https://dentacartnepal.com';
   } else {
     // In development, default to localhost with port 3000 (React/Vite default)
     return 'http://localhost:3000';
@@ -42,7 +42,7 @@ const brevoApi = axios.create({
 const sendEmail = async ({ to, subject, html }) => {
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: [{ email: to }],
@@ -63,20 +63,20 @@ const sendEmail = async ({ to, subject, html }) => {
 const sendVerificationOTP = async (email, otp) => {
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: [{ email: email }],
-    subject: 'Email Verification OTP - Dental Kart Nepal',
+    subject: 'Email Verification OTP - Denta Cart Nepal',
     htmlContent: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 20px;">
-          <h1 style="color: #f97316;">Welcome to Dental Kart Nepal!</h1>
+          <h1 style="color: #f97316;">Welcome to Dental Cart Nepal!</h1>
         </div>
         <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
           <h2 style="color: #333; margin-bottom: 20px;">Verify Your Email Address</h2>
           <p style="color: #666; line-height: 1.6;">
-            Thank you for registering with Dental Kart Nepal. To complete your registration and access our medical supplies platform, please use the following OTP code:
+            Thank you for registering with Dental Cart Nepal. To complete your registration and access our medical supplies platform, please use the following OTP code:
           </p>
           <div style="text-align: center; margin: 30px 0;">
             <div style="background: #f8f8f8; padding: 20px; border-radius: 8px; display: inline-block;">
@@ -84,11 +84,11 @@ const sendVerificationOTP = async (email, otp) => {
             </div>
           </div>
           <p style="color: #666; line-height: 1.6;">
-            This OTP will expire in 10 minutes. If you did not create an account with Dental Kart Nepal, please ignore this email.
+            This OTP will expire in 10 minutes. If you did not create an account with Dental Cart Nepal, please ignore this email.
           </p>
         </div>
         <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
-          <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
         </div>
       </div>
     `
@@ -109,15 +109,15 @@ const sendPasswordResetEmail = async (email, resetToken) => {
 
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: [{ email: email }],
-    subject: 'Password Reset Request - Dental Kart Nepal',
+    subject: 'Password Reset Request - Dental Cart Nepal',
     htmlContent: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 20px;">
-          <h1 style="color: #f97316;">Dental Kart Nepal Password Reset</h1>
+          <h1 style="color: #f97316;">Dental Cart Nepal Password Reset</h1>
         </div>
         <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
           <h2 style="color: #333; margin-bottom: 20px;">Reset Your Password</h2>
@@ -139,7 +139,7 @@ const sendPasswordResetEmail = async (email, resetToken) => {
           </div>
         </div>
         <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
-          <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
         </div>
       </div>
     `
@@ -160,11 +160,11 @@ const sendVendorPasswordResetEmail = async (email, resetToken) => {
 
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: [{ email: email }],
-    subject: 'Vendor Password Reset Request - Dental Kart Nepal',
+    subject: 'Vendor Password Reset Request - Dental Cart Nepal',
     htmlContent: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 20px;">
@@ -190,7 +190,7 @@ const sendVendorPasswordResetEmail = async (email, resetToken) => {
           </div>
         </div>
         <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
-          <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
         </div>
       </div>
     `
@@ -221,7 +221,7 @@ const sendOrderNotificationToAdmins = async (order, adminEmails) => {
 
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: adminEmails.map(email => ({ email })),
@@ -229,7 +229,7 @@ const sendOrderNotificationToAdmins = async (order, adminEmails) => {
     htmlContent: `
       <div style="max-width: 700px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
         <div style="text-align: center; margin-bottom: 20px;">
-          <h1 style="color: #f97316;">New Order Alert - Dental Kart Nepal</h1>
+          <h1 style="color: #f97316;">New Order Alert - Dental Cart Nepal</h1>
         </div>
         
         <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
@@ -307,7 +307,7 @@ const sendOrderNotificationToAdmins = async (order, adminEmails) => {
         </div>
         
         <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
-          <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
         </div>
       </div>
     `
@@ -415,11 +415,11 @@ const sendOrderConfirmationToCustomer = async (order, userEmail) => {
 
   const emailData = {
     sender: {
-      name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+      name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
       email: process.env.EMAIL_FROM
     },
     to: [{ email: userEmail }],
-    subject: `Order Confirmation - ${order.orderNumber} - Dental Kart Nepal`,
+    subject: `Order Confirmation - ${order.orderNumber} - Dental Cart Nepal`,
     htmlContent: `
       <!DOCTYPE html>
       <html>
@@ -616,13 +616,13 @@ const sendOrderConfirmationToCustomer = async (order, userEmail) => {
               <div style="display: flex; align-items: center; flex: 1; min-width: 200px;">
                 <img 
                   src="${getClientUrl()}/uploads/logo-orange.png" 
-                  alt="Dental Kart Logo" 
+                  alt="Surgical Mart Logo" 
                   style="height: 50px; width: 50px; margin-right: 15px; object-fit: contain;"
                   onerror="this.style.display='none';"
                 />
                 <div style="text-align: left;">
                   <div style="font-size: 28px; font-weight: bold; color: #1f2937; margin-bottom: 4px;">
-                    Dental Kart
+                    Surgical Mart
                   </div>
                   <div style="font-size: 14px; color: #f97316; font-weight: 600;">
                     Nepal
@@ -849,7 +849,7 @@ const sendOrderNotificationToVendors = async (order, vendorProducts) => {
 
     const emailData = {
       sender: {
-        name: process.env.EMAIL_FROM_NAME || 'Dental Kart Nepal',
+        name: process.env.EMAIL_FROM_NAME || 'Dental Cart Nepal',
         email: process.env.EMAIL_FROM
       },
       to: [{ email: vendor.email }],
@@ -857,7 +857,7 @@ const sendOrderNotificationToVendors = async (order, vendorProducts) => {
       htmlContent: `
         <div style="max-width: 700px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
           <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="color: #f97316;">New Order Alert - Dental Kart Nepal</h1>
+            <h1 style="color: #f97316;">New Order Alert - Dental Cart Nepal</h1>
           </div>
           
           <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
@@ -927,7 +927,7 @@ const sendOrderNotificationToVendors = async (order, vendorProducts) => {
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
-            <p>&copy; ${new Date().getFullYear()} Dental Kart Nepal. All rights reserved.</p>
+            <p>&copy; ${new Date().getFullYear()} Dental Cart Nepal. All rights reserved.</p>
           </div>
         </div>
       `
