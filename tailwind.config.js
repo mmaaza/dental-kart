@@ -15,123 +15,123 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f8fbfd',
-          100: '#e8f4f8',
-          200: '#d1e9f1',
-          300: '#a3d2e7',
-          400: '#6bb5d8',
-          500: '#033f63', // Deep Ocean
-          600: '#2a5a7d',
-          700: '#1e4861',
-          800: '#123650',
-          900: '#0a2742',
-          950: '#051a33',
+          50: '#f7fef7',
+          100: '#ecfced',
+          200: '#d4f8d4',
+          300: '#aaf0aa',
+          400: '#7ae47a',
+          500: '#5a7c2a', // Dark Chartreuse - excellent contrast
+          600: '#4a6b20', // Dark Lime - excellent contrast
+          700: '#3d5518', // Dark Olive - excellent contrast
+          800: '#2f4012', // Dark Pickle - excellent contrast
+          900: '#1f2a0c', // Dark Seaweed - excellent contrast
+          950: '#0f1506',
         },
         secondary: {
-          50: '#f6f9f9',
-          100: '#e8f1f1',
-          200: '#d1e3e3',
-          300: '#9fc7c8',
-          400: '#5a9fa5',
-          500: '#28666e', // Teal Harbor
-          600: '#3d7d85',
-          700: '#356b73',
-          800: '#2d5960',
-          900: '#24484e',
-          950: '#1b373c',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#1a6b4a', // Dark Seafoam - excellent contrast
+          600: '#2a7c5a', // Dark Mint - excellent contrast
+          700: '#1e5d2d', // Dark Parakeet - excellent contrast
+          800: '#165020', // Dark Shamrock - excellent contrast
+          900: '#0d3c18',
+          950: '#062510',
         },
         accent: {
-          50: '#f8faf8',
-          100: '#f0f4f1',
-          200: '#e1e8e2',
-          300: '#c3d1c5',
-          400: '#9eb5a5',
-          500: '#7c9885', // Sage Green
-          600: '#8aaa93',
-          700: '#6d8a76',
-          800: '#5c7663',
-          900: '#4b6151',
-          950: '#3a4d40',
+          50: '#f7fdf7',
+          100: '#edfbed',
+          200: '#d8f5d8',
+          300: '#b8ebb8',
+          400: '#90dc90',
+          500: '#4a6b20', // Dark Pear - excellent contrast
+          600: '#3d5518', // Dark Sage - excellent contrast
+          700: '#006a2b', // Dark Emerald - excellent contrast
+          800: '#2f4012', // Dark Pickle - excellent contrast
+          900: '#1f2a0c', // Dark Seaweed - excellent contrast
+          950: '#0f1506',
         },
         // New admin color scheme
         admin: {
           prussian: {
-            DEFAULT: '#b5b682',
-            100: '#fafaf5',
-            200: '#f4f4ea',
-            300: '#eeeedd',
-            400: '#d6d3a8',
-            500: '#b5b682', // Desert Sand
-            600: '#c2c090',
-            700: '#a8a574',
-            800: '#8e8b61',
-            900: '#74714e',
-            950: '#5a573b'
+            DEFAULT: '#1f2937',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#9ca3af',
+            500: '#6b7280', // Gray
+            600: '#4b5563', // Dark Gray
+            700: '#374151', // Darker Gray
+            800: '#1f2937', // Very Dark Gray
+            900: '#111827', // Almost Black
+            950: '#030712' // Deep Black
           },
           indigo: {
-            DEFAULT: '#fedc97',
-            100: '#fffcf7',
-            200: '#fef8ed',
-            300: '#fef0d2',
-            400: '#fee4b0',
-            500: '#fedc97', // Warm Cream
-            600: '#fed07d',
-            700: '#fcc254',
-            800: '#e5a83c',
-            900: '#cc9132',
-            950: '#b37a28'
+            DEFAULT: '#374151',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#9ca3af',
+            500: '#6b7280', // Gray
+            600: '#4b5563', // Dark Gray
+            700: '#374151', // Darker Gray
+            800: '#1f2937', // Very Dark Gray
+            900: '#111827', // Almost Black
+            950: '#030712' // Deep Black
           },
           ucla: {
-            DEFAULT: '#033f63',
-            100: '#f7fafe',
-            200: '#e6f2fc',
-            300: '#cce5f8',
-            400: '#99ccf0',
-            500: '#033f63', // Deep Ocean
-            600: '#1a5a84',
-            700: '#0f4670',
-            800: '#06355c',
-            900: '#032a4a',
-            950: '#011f38'
+            DEFAULT: '#111827',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#9ca3af',
+            500: '#6b7280', // Gray
+            600: '#4b5563', // Dark Gray
+            700: '#374151', // Darker Gray
+            800: '#1f2937', // Very Dark Gray
+            900: '#111827', // Almost Black
+            950: '#030712' // Deep Black
           },
           cerulean: {
-            DEFAULT: '#28666e',
-            100: '#f5f9f9',
-            200: '#e6f1f2',
-            300: '#cce3e5',
-            400: '#99c7ca',
-            500: '#28666e', // Teal Harbor
-            600: '#4a8189',
-            700: '#3a6d74',
-            800: '#2e5960',
-            900: '#22454b',
-            950: '#163237'
+            DEFAULT: '#4b5563',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#9ca3af',
+            500: '#6b7280', // Gray
+            600: '#4b5563', // Dark Gray
+            700: '#374151', // Darker Gray
+            800: '#1f2937', // Very Dark Gray
+            900: '#111827', // Almost Black
+            950: '#030712' // Deep Black
           },
           sky: {
-            DEFAULT: '#7c9885',
-            100: '#f9fbf9',
-            200: '#f1f6f2',
-            300: '#e3ede5',
-            400: '#c7daca',
-            500: '#7c9885', // Sage Green
-            600: '#95b39e',
-            700: '#6b8974',
-            800: '#5a7462',
-            900: '#495f50',
-            950: '#384a3e'
+            DEFAULT: '#6b7280',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#9ca3af',
+            500: '#6b7280', // Gray
+            600: '#4b5563', // Dark Gray
+            700: '#374151', // Darker Gray
+            800: '#1f2937', // Very Dark Gray
+            900: '#111827', // Almost Black
+            950: '#030712' // Deep Black
           },
           light: {
-            DEFAULT: '#fedc97',
-            100: '#fffdf9',
-            200: '#fffaf0',
-            300: '#fef4dc',
-            400: '#feecbb',
-            500: '#fedc97', // Warm Cream
-            600: '#fed685',
-            700: '#fdc960',
-            800: '#f5b742',
-            900: '#e6a332',
-            950: '#d18f22'
+            DEFAULT: '#f9fafb',
+            100: '#f9fafb',
+            200: '#f3f4f6',
+            300: '#e5e7eb',
+            400: '#d1d5db',
+            500: '#9ca3af', // Light Gray
+            600: '#6b7280', // Gray
+            700: '#4b5563', // Dark Gray
+            800: '#374151', // Darker Gray
+            900: '#1f2937', // Very Dark Gray
+            950: '#111827' // Almost Black
           },
           slate: {
             DEFAULT: '#475569',
@@ -140,12 +140,12 @@ export default {
             200: '#e3e6e8',
             300: '#ced4d8',
             400: '#9ca8b2',
-            500: '#6a7a8a',
-            600: '#475569',
-            700: '#3d4a58',
-            800: '#2e3a47',
-            900: '#1f2a36',
-            950: '#141d26'
+            500: '#475569', // Slate Gray
+            600: '#374151', // Dark Slate
+            700: '#1f2937', // Very Dark Slate
+            800: '#111827', // Almost Black Slate
+            900: '#030712', // Deep Black
+            950: '#000000' // Pure Black
           }
         }
       },
